@@ -18,9 +18,11 @@
 
 - **Nome e natureza da organização:** (Nome da Empresa) Empresa fabricante de materiais para construção civil (argamassas, texturas e afins), que produz sob encomenda conforme pedido do cliente.  (FIZ METADE)
 
-- **Contexto e porte:** Empresa de pequeno/médio porte, com fins lucrativos. [PREENCHER — número aproximado de funcionários envolvidos na operação: recepção/conferência, estoque, separação, expedição, motoristas, administrativo]. [PREENCHER — volume aproximado de atividades observado: nº de pedidos processados por dia/semana, nº de entregas, nº de fornecedores atendidos, nº de clientes ativos].
+- **Contexto e porte:** Empresa de pequeno/médio porte, com fins lucrativos.  — número aproximado de funcionários envolvidos na operação: recepção/conferência, estoque, separação, expedição, motoristas, administrativo]. [PREENCHER — volume aproximado de atividades observado: nº de pedidos processados por dia/semana, nº de entregas, nº de fornecedores atendidos, nº de clientes ativos
 
-- **Problemas e necessidades identificados:** [PREENCHER com base na visita — ex.: controle de estoque feito em planilhas soltas sem integração com os pedidos; falta de rastreabilidade dos produtos entre recebimento e expedição; ausência de histórico centralizado de entregas e motoristas; dificuldade em saber a localização exata de um produto dentro do galpão; retrabalho manual na conferência de notas fiscais e itens].
+- **Problemas e necessidades identificados:**
+
+
 
 - **Justificativa da escolha:** PREENCHER — por que essa organização foi escolhida (acesso garantido).
 
