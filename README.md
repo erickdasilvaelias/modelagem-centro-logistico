@@ -6,9 +6,11 @@
 ## Metadados
 
 - **Nomes dos alunos e RGM:**
-  - [PREENCHER — Nome completo, RGM]
-  - [PREENCHER — Nome completo, RGM]
-  - [PREENCHER — Nome completo, RGM]
+  - Erick da Silva Elias, 47676779
+  - Fabricio
+  - Marcella Flandes Souza De Mello, 48386278
+  - Matheus Fagundes
+  - Henry
 
 ---
 
