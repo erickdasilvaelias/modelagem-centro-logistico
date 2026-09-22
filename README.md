@@ -6,11 +6,11 @@
 ## Metadados
 
 - **Nomes dos alunos e RGM:**
-  - Erick da Silva Elias, 47676779
-  - Fabricio
-  - Marcella Flandes Souza De Mello, 48386278
+  - Erick da Silva Elias, RGM: 47676779
+  - Fabricio Coutinho, RGM: 4795228  
+  - Marcella Flandes Souza De Mello, RGM: 48386278
   - Matheus Fagundes
-  - Henry
+  - Henry Amaral Pires, RGM: 49937707
 
 ---
 
@@ -27,10 +27,11 @@
 - **Justificativa da escolha:** PREENCHER — por que essa organização foi escolhida (acesso garantido).
 
 - **Evidências da organização:**
-  - Endereço completo
-  - Contato (telefone/e-mail) e nome do responsável entrevistado
-  - Link no Google Maps / Google Meu Negócio ou site/rede social
-  - Fotos da visita (anexar no repositório, ex.: `/evidencias/`)
+  - Endereço completo:  Av. Ademar Pereira de Barros, 876 - Jardim Santa Maria, Jacareí - SP
+  - Contato: adm2@jvindustria.com.br/ (12) 3958-3431
+  - e nome do responsável entrevistado
+  - Site: https://jvindustria.com.br/
+  - Fotos da visita (anexar no repositório)
 
 ---
 
