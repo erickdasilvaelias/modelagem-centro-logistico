@@ -9,7 +9,7 @@
   - Erick da Silva Elias, RGM: 47676779
   - Fabricio Coutinho, RGM: 4795228  
   - Marcella Flandes Souza De Mello, RGM: 48386278
-  - Matheus Fagundes
+  - Matheus Mendes Fagundes, RGM: 48296457
   - Henry Amaral Pires, RGM: 49937707
 
 ---
