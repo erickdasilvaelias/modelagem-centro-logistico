@@ -80,19 +80,29 @@
 
 ---
 
-## 4. Regras de Negócio   (FIZ METADE)
+## 4. Regras de Negócio
 
 - **Regras operacionais:**
   - A quantidade produzida de cada produto é determinada exclusivamente pelo pedido do cliente (em kg); não há produção especulativa sem pedido associado.
+  - Cada produto possui uma fórmula própria e fixa, que não muda entre um pedido e outro.
   - Cada fórmula emitida no sistema corresponde a um único produto e uma única quantidade planejada, definidos a partir do pedido do cliente.
-  - Cada máquina é dedicada exclusivamente a um tipo de produto; uma fórmula só pode ser direcionada para a máquina correspondente ao produto solicitado.
+  - Cada máquina é dedicada exclusivamente a um tipo de produto; após a mistura na batedora, o material é direcionado à máquina correspondente ao produto solicitado.
   - Uma fórmula só é encerrada no sistema após o registro da quantidade efetivamente produzida.
-  - A entrada de produto em estoque só ocorre após a expedição confirmar e registrar a quantidade recebida da produção.
-  - A nota fiscal só pode ser emitida após a confirmação da expedição (produto já registrado em estoque).
-  - A contratação do veículo de entrega ocorre após a emissão da nota fiscal, vinculada ao pedido correspondente.
- 
+  - Toda produção recebe número de produção, lote, data de fabricação e validade do produto, garantindo rastreabilidade.
+  - A entrada de produto em estoque ocorre automaticamente no sistema assim que a fórmula é baixada ao final da produção, e é confirmada/registrada novamente pela expedição ao receber os produtos.
+  - O estoque disponível pode ser consultado pelo código do produto, e também é exibido automaticamente no momento da emissão da nota fiscal.
+  - A nota fiscal só é emitida após a expedição registrar a entrada dos produtos.
+  - A contratação do veículo de entrega ocorre após a emissão da nota fiscal.
+  - O pedido possui status "Orçamento" enquanto está em produção, e passa a "Pedido Faturado" quando o cliente realiza a retirada.
+  - O pedido pode ser alterado a qualquer momento antes do início da produção.
+  - O pedido pode ser cancelado, desde que o cliente avise com antecedência e a produção ainda não tenha sido iniciada.
+  - Pedidos destinados a faturamento exigem que o cliente esteja com o nome limpo (sem restrições cadastrais) e respeitem um valor mínimo de R$ 800,00.
+  - Pedidos pagos à vista com retirada no local não possuem restrição de valor mínimo nem exigência de nome limpo.
+
 - **Restrições organizacionais:**
-  -  — ex.: exigências legais de transporte de determinadas mercadorias, prazos contratuais com fornecedores, políticas internas de segurança no galpão, normas de armazenagem (empilhamento máximo, produtos perecíveis, etc.
+  - A concessão de faturamento (venda a prazo) está condicionada à situação cadastral do cliente (ausência de restrições) e a um valor mínimo de pedido, prática comum no setor para mitigar risco de inadimplência.
+  - O cancelamento de pedidos é limitado ao período anterior ao início da produção, já que os materiais são fabricados sob encomenda e o cancelamento após o início geraria perda de matéria-prima e tempo de máquina.
+  - A rastreabilidade obrigatória por lote/validade/data de fabricação provavelmente atende a normas técnicas do setor de construção civil (garantia de qualidade dos materiais).
 
 ---
 
