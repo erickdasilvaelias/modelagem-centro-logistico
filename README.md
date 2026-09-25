@@ -16,7 +16,7 @@
 
 ## 1. Caracterização da Organização
 
-- **Nome e natureza da organização:** (Nome da Empresa) Empresa fabricante de materiais para construção civil (argamassas, texturas e afins), que produz sob encomenda conforme pedido do cliente.  (FIZ METADE)
+- **Nome e natureza da organização:** JV industria, empresa fabricante de materiais para construção civil (argamassas, texturas e afins), que produz sob encomenda conforme pedido do cliente.  
 
 - **Contexto e porte:** Empresa de pequeno/médio porte, com fins lucrativos.  — número aproximado de funcionários envolvidos na operação: recepção/conferência, estoque, separação, expedição, motoristas, administrativo.  (escrever) volume aproximado de atividades observado: nº de pedidos processados por dia/semana, nº de entregas, nº de fornecedores atendidos, nº de clientes ativos
 
