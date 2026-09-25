@@ -56,11 +56,27 @@
 
 ### 3.1 Requisitos Funcionais
 
-- 
+- O sistema deve permitir cadastrar, consultar, editar e inativar clientes.
+- O sistema deve permitir cadastrar produtos (massa corrida, rejunte, massa acrílica, texturas, grafiato, cimento queimado, massa para drywall, impermeabilizante, etc.).
+- O sistema deve permitir registrar um pedido de cliente, informando o produto e a quantidade solicitada (em kg).
+- O sistema deve permitir emitir uma fórmula de produção a partir de um pedido, vinculando o produto e a quantidade planejada.
+- O sistema deve permitir registrar as matérias-primas necessárias para cada fórmula e a quantidade de cada uma.
+- O sistema deve permitir associar uma fórmula à máquina correspondente ao tipo de produto a ser fabricado.
+- O sistema deve permitir registrar a quantidade efetivamente produzida ao final da fabricação e encerrar a fórmula correspondente.
+- O sistema deve permitir registrar a entrada de produtos acabados no estoque após a expedição.
+- O sistema deve permitir emitir a nota fiscal vinculada a um pedido, após a confirmação da expedição.
+- O sistema deve permitir registrar a entrega, associando o veículo contratado ao pedido e à nota fiscal.
+- O sistema deve permitir consultar o status de um pedido ao longo de todo o processo (recebido, em fórmula, em produção, expedido, faturado, entregue).
+- O sistema deve permitir consultar a quantidade de cada matéria-prima e produto disponível em estoque.
 
 ### 3.2 Requisitos Não Funcionais
 
-- 
+- **Desempenho:** o sistema deve responder às consultas de estoque de matéria-prima em tempo hábil para não atrasar a separação e o início da produção.
+- **Disponibilidade:** o sistema deve estar disponível durante o horário de funcionamento da fábrica.
+- **Segurança:** o acesso a dados de clientes, valores de pedidos e notas fiscais deve ser restrito a usuários autorizados (administrativo/financeiro).
+- **Usabilidade:** a interface usada no chão de fábrica (registro de fórmula, encerramento de produção) deve ser simples o suficiente para operadores de máquina sem formação técnica em TI.
+- **Integridade:** o sistema não deve permitir o encerramento de uma fórmula sem o registro da quantidade efetivamente produzida.
+- **Rastreabilidade:** o sistema deve manter o histórico de cada lote produzido, vinculado à fórmula, à máquina e ao pedido de origem.
 
 ---
 
