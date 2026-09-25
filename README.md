@@ -145,3 +145,18 @@ PREENCHER — Explique e defenda as decisões de abstração tomadas: por que es
 
 ---
 
+**Uso adicional (integrante responsável pela entrevista de campo):**
+
+| Item | Registro |
+|------|------------------|
+| **Ferramenta e etapa** | ChatGPT (OpenAI) — organização do levantamento bruto de informações coletado na entrevista de campo (transcrição de falas do responsável entrevistado) em categorias (Entidades, Processos, Dados/Regras), com referência de origem de cada trecho. |
+| **Motivação** | O levantamento de campo foi registrado de forma corrida/desestruturada (mensagens de texto); o grupo recorreu à IA para organizar esse material bruto em categorias úteis à modelagem, sem perder nenhuma informação relatada. |
+| **Prompt(s) utilizados** | "Vou te enviar várias mensagens. Quero que você organize todo esse conteúdo de forma clara e estruturada... Organize por categorias: Entidades, Processos e Dados/Outras informações... Indique a referência de qual mensagem veio cada informação" (seguido da transcrição bruta da entrevista). |
+| **Resposta recebida** | Documento estruturado com o levantamento organizado em Entidades, Processos, Dados/Regras de Negócio (numeradas RN01–RN26) e um fluxo geral da produção, cada trecho referenciado à fala original do entrevistado. |
+| **Fontes consultadas e verificadas** | Nenhuma fonte externa; a IA apenas reorganizou informações fornecidas diretamente pelo grupo a partir da entrevista de campo, sem adicionar conteúdo próprio. |
+| **Trechos rejeitados ou corrigidos** | [PREENCHER pelo integrante que usou — ex.: alguma categorização foi reagrupada manualmente, alguma regra duplicada foi consolidada] |
+| **Justificativa da escolha final** | A organização por categorias (Entidades/Processos/Regras) facilitou a transição direta desse levantamento para o MER e o dicionário de dados, mantendo rastreabilidade da fala original de onde cada regra foi extraída. |
+| **Reflexão crítica** | Como a IA apenas reorganiza e não valida o conteúdo, cabe ao grupo confirmar que nenhuma informação foi mal interpretada na reorganização — por exemplo, distinguir corretamente entre regras aplicáveis a "faturamento" e a "retirada com pagamento à vista", que têm condições diferentes. |
+
+---
+
