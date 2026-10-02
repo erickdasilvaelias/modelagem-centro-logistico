@@ -28,7 +28,7 @@
 - **Evidências da organização:**
   - Endereço completo:  Av. Ademar Pereira de Barros, 876 - Jardim Santa Maria, Jacareí - SP
   - Contato: adm2@jvindustria.com.br/ (12) 3958-3431
-  - e nome do responsável entrevistado
+  - Entrevistado: Eliane Silveira do Carmo
   - Site: https://jvindustria.com.br/
   - Fotos da visita (anexar no repositório)
 
