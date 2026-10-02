@@ -17,13 +17,13 @@
 
 - **Nome e natureza da organização:** JV industria, empresa fabricante de materiais para construção civil (argamassas, texturas e afins), que produz sob encomenda conforme pedido do cliente.  
 
-- **Contexto e porte:** Empresa de pequeno/médio porte, com fins lucrativos.  — número aproximado de funcionários envolvidos na operação: recepção/conferência, estoque, separação, expedição, motoristas, administrativo.  (escrever) volume aproximado de atividades observado: nº de pedidos processados por dia/semana, nº de entregas, nº de fornecedores atendidos, nº de clientes ativos
+- **Nome e natureza da organização:** JV Indústria, empresa fabricante de materiais para construção civil (argamassas, texturas e afins), que produz sob encomenda conforme pedido do cliente.
 
-- **Problemas e necessidades identificados:**
+- **Contexto e porte:** Empresa de pequeno/médio porte, com fins lucrativos, totalizando 30 funcionários diretos, distribuídos da seguinte forma: 19 na produção, 4 no administrativo, 3 no laboratório, 2 na expedição e 2 no estoque de embalagens. A empresa realiza em média 25 cargas de entrega por semana.
 
+- **Problemas e necessidades identificados:** Um dos principais pontos de atenção na operação é a eventual quebra de máquinas durante a produção — a empresa mantém uma equipe de manutenção terceirizada atuando dentro da própria fábrica para resolver essas paradas rapidamente, o que indica a importância de rastrear, no sistema, o histórico de produção por máquina e eventuais interrupções, já que isso impacta diretamente o cumprimento dos pedidos.
 
-
-- **Justificativa da escolha:** - **Justificativa da escolha:** A JV Indústria foi escolhida porque um dos integrantes do grupo possui vínculo familiar, o que garantiu acesso facilitado para a realização da visita presencial e da entrevista com a responsável. Esse acesso direto foi decisivo para viabilizar um levantamento de requisitos real e aprofundado, conforme exigido pela disciplina. Além disso, o porte e a complexidade dos processos observados (produção sob encomenda, controle de fórmulas, estoque e expedição) se mostraram adequados ao escopo desta primeira etapa do trabalho.
+ - **Justificativa da escolha:** A JV Indústria foi escolhida porque um dos integrantes do grupo possui vínculo familiar, o que garantiu acesso facilitado para a realização da visita presencial e da entrevista com a responsável. Esse acesso direto foi decisivo para viabilizar um levantamento de requisitos real e aprofundado, conforme exigido pela disciplina. Além disso, o porte e a complexidade dos processos observados (produção sob encomenda, controle de fórmulas, estoque e expedição) se mostraram adequados ao escopo desta primeira etapa do trabalho.
 
 - **Evidências da organização:**
   - Endereço completo:  Av. Ademar Pereira de Barros, 876 - Jardim Santa Maria, Jacareí - SP
