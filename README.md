@@ -23,7 +23,7 @@
 
 
 
-- **Justificativa da escolha:** PREENCHER — por que essa organização foi escolhida (acesso garantido).
+- **Justificativa da escolha:** - **Justificativa da escolha:** A JV Indústria foi escolhida porque um dos integrantes do grupo possui vínculo familiar, o que garantiu acesso facilitado para a realização da visita presencial e da entrevista com a responsável. Esse acesso direto foi decisivo para viabilizar um levantamento de requisitos real e aprofundado, conforme exigido pela disciplina. Além disso, o porte e a complexidade dos processos observados (produção sob encomenda, controle de fórmulas, estoque e expedição) se mostraram adequados ao escopo desta primeira etapa do trabalho.
 
 - **Evidências da organização:**
   - Endereço completo:  Av. Ademar Pereira de Barros, 876 - Jardim Santa Maria, Jacareí - SP
