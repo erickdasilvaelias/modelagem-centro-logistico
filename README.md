@@ -34,7 +34,7 @@
 
 ---
 
-## 2. Processos de Negócio  (FIZ)
+## 2. Processos de Negócio 
 
 - **Principais processos mapeados:**
   - **Recebimento de pedidos:** o cliente informa o produto desejado e a quantidade (em kg) necessária.  
