@@ -136,6 +136,12 @@
 
 ## 7. Diagrama Entidade-Relacionamento (DER)
 
+![DER - JV Indústria](./der/der_jv_industria.png)
+
+O diagrama acima representa as entidades, atributos, relacionamentos e cardinalidades levantados a partir do processo produtivo da JV Indústria, cobrindo desde o recebimento do pedido do cliente até a entrega final — passando pela emissão de fórmula, consumo de matéria-prima, fabricação em máquina dedicada, controle de lote, entrada em estoque, expedição e faturamento.
+
+**Entidades representadas:** Cliente, Pedido, Item_pedido, Produto, Formula, Matéria_prima, Fornecedores, Máquina, Produção, Lote, Estoque, Expedição, Nota_fiscal, Veículo.
+
 ---
 
 ## 8. Justificativa Técnica
