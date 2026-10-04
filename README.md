@@ -5,17 +5,17 @@
 
 ## Metadados
 
-- **Nomes dos alunos e RGM:**
-  - Erick da Silva Elias, RGM: 47676779
-  - Fabricio Coutinho, RGM: 4795228
-  - Henry Amaral Pires, RGM: 49937707
-  - Marcella Flandes Souza De Mello, RGM: 48386278
-  - Matheus Mendes Fagundes, RGM: 48296457
----
+| **Nomes** | **RGM** |
+|---|---|
+| [Erick da Silva Elias](https://github.com/erickdasilvaelias) | 47676779 |
+| [Fabricio Coutinho](https://github.com/Briciobio) | 4795228 |
+| [Henry Amaral Pires](https://github.com/HenryPires505) | 49937707
+| [Marcella Flandes Souza De Mello](https://github.com/marcellaflandes) | 48386278 |
+| [Matheus Mendes Fagundes](https://github.com/Matheus-212) | 48296457 |
 
 ## 1. Caracterização da Organização
 
-- **Nome e natureza da organização:** JV industria, empresa fabricante de materiais para construção civil (argamassas, texturas e afins), que produz sob encomenda conforme pedido do cliente.  
+- **Nome e natureza da organização:** JV industria, empresa fabricante de materiais para construção civil (argamassas, texturas e afins), que produz sob encomenda conforme pedido do cliente.
 
 - **Nome e natureza da organização:** JV Indústria, empresa fabricante de materiais para construção civil (argamassas, texturas e afins), que produz sob encomenda conforme pedido do cliente.
 
@@ -34,10 +34,10 @@
 
 ---
 
-## 2. Processos de Negócio 
+## 2. Processos de Negócio
 
 - **Principais processos mapeados:**
-  - **Recebimento de pedidos:** o cliente informa o produto desejado e a quantidade (em kg) necessária.  
+  - **Recebimento de pedidos:** o cliente informa o produto desejado e a quantidade (em kg) necessária.
   - **Emissão de fórmula:** com base no pedido, é emitida no sistema a fórmula de produção do produto solicitado.
   - **Separação de matérias-primas:** os insumos necessários para a fórmula são separados no setor correspondente.
   - **Direcionamento para a máquina:** cada máquina é dedicada a um tipo específico de produto; a fórmula é enviada para a máquina correta.
@@ -48,7 +48,7 @@
 
 
 - **Fluxogramas:**
-  
+
 ---
 
 ## 3. Requisitos do Sistema
@@ -105,15 +105,28 @@
 
 ---
 
-## 5. Dicionário de Dados Conceitual 
+## 5. Dicionário de Dados Conceitual
 
+| Entidade | Relaciona-se com | Cardinalidade |
+|---|---|---|
+| Cliente | Pedido | 0.N —  Um clinte pode possui ou não N pedidos, todo pedido pertence a um único cliente. |
+| Pedido | Nota Fiscal | 1.1 — Um pedido gerar apenas uma única nota fiscal. |
+| Pedido | Produto ||
+| Produto | Fórmula ||
+| Produto | Estoque ||
+| Produto | Lote ||
+| Matéria Prima | Máquina ||
+| Lote |||
+| Estoque |||
+| Veiculos |||
 ---
+
 
 ## 6. Modelagem Conceitual (Entidades, Atributos, Relacionamentos)
 
 - **Entidades reconhecidas:** Cliente, Fornecedor, Produto, Estoque, Pedido, Item_Pedido, Entrega, Veículo, Funcionário.
 
-- **Atributos e classificações:** 
+- **Atributos e classificações:**
 
 - **Relacionamentos pertinentes:**
   - Cliente **realiza** Pedido (1:N)
@@ -168,4 +181,3 @@ PREENCHER — Explique e defenda as decisões de abstração tomadas: por que es
 | **Reflexão crítica** | Como a IA apenas reorganiza e não valida o conteúdo, cabe ao grupo confirmar que nenhuma informação foi mal interpretada na reorganização — por exemplo, distinguir corretamente entre regras aplicáveis a "faturamento" e a "retirada com pagamento à vista", que têm condições diferentes. |
 
 ---
-
