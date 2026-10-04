@@ -48,7 +48,7 @@
 
 
 - **Fluxograma:**<br>
-<img src="img/fluxograma.jpg" width="400px"></img>
+<p align="center"><img src="img/fluxograma.jpg" width="400px"></img></p>
 ---
 
 ## 3. Requisitos do Sistema
