@@ -15,8 +15,6 @@
 
 ## 1. Caracterização da Organização
 
-- **Nome e natureza da organização:** JV industria, empresa fabricante de materiais para construção civil (argamassas, texturas e afins), que produz sob encomenda conforme pedido do cliente.
-
 - **Nome e natureza da organização:** JV Indústria, empresa fabricante de materiais para construção civil (argamassas, texturas e afins), que produz sob encomenda conforme pedido do cliente.
 
 - **Contexto e porte:** Empresa de pequeno/médio porte, com fins lucrativos, totalizando 30 funcionários diretos, distribuídos da seguinte forma: 19 na produção, 4 no administrativo, 3 no laboratório, 2 na expedição e 2 no estoque de embalagens. A empresa realiza em média 25 cargas de entrega por semana.
@@ -111,21 +109,28 @@
 
 ## 6. Modelagem Conceitual (Entidades, Atributos, Relacionamentos)
 
-- **Entidades reconhecidas:** Cliente, Fornecedor, Produto, Estoque, Pedido, Item_Pedido, Entrega, Veículo, Funcionário.
-
-- **Atributos e classificações:**
+- **Entidades reconhecidas:** Cliente, Pedido, Item_Pedido, Produto, Formula, Matéria_Prima, Fornecedores, Máquina, Produção, Lote, Estoque, Expedição, Nota_Fiscal, Veículo. Cada entidade corresponde a uma etapa ou elemento concreto identificado no processo real da empresa: desde o pedido do cliente até a entrega final, passando pela emissão da fórmula, consumo de matéria-prima, fabricação em máquina dedicada, controle de lote e expedição.
 
 - **Relacionamentos pertinentes:**
-  - Cliente **realiza** Pedido (1:N)
-  - Pedido **contém** Item_Pedido (1:N)
-  - Produto **compõe** Item_Pedido (1:N)
-  - Fornecedor **fornece** Produto (1:N)
-  - Produto **é armazenado em** Estoque (1:N)
-  - Pedido **gera** Entrega (1:1, opcional)
-  - Veículo **realiza** Entrega (1:N)
-  - Funcionário **conduz** Veículo (1:N)
+  - Cliente **realiza** Pedido (0,N) : (1,1)
+  - Pedido **possui** Item_Pedido (1,1) : (1,N)
+  - Item_Pedido **refere-se** Produto (1,1) : (1,1)
+  - Formula **define** Produto (1,1) : (1,1) — reflete a regra de que cada produto tem uma fórmula própria e fixa
+  - Formula **utiliza** Matéria_Prima (1,1) : (1,N)
+  - Matéria_Prima **abastece** Máquina (1,N) : (1,N)
+  - Fornecedores **fornece** Matéria_Prima (1,1) : (1,N) 
+  - Produto **origina** Produção (1,1) : (1,N)
+  - Produção **gera** Lote (1,N) : (1,1)
+  - Lote **está em** Estoque (1,1) : (0,N)
+  - Pedido **gera** Expedição (1,1) : (1,N)
+  - Expedição **emite** Nota_Fiscal (1,1) : (1,1)
+  - Expedição **emite** Veículo (1,N) : (0,N) 
 
-- **Restrições e políticas organizacionais aplicadas ao modelo:** [PREENCHER — relacione as regras de negócio da Seção 4 com as restrições de cardinalidade/obrigatoriedade do modelo]
+- **Restrições e políticas organizacionais aplicadas ao modelo:**
+  - A obrigatoriedade de Formula estar sempre vinculada a um único Produto (1,1) reflete a regra de que cada produto possui fórmula própria e fixa, que não muda entre pedidos.
+  - A cardinalidade entre Matéria_Prima e Máquina (via "abastece") busca refletir a regra de que cada máquina é dedicada a um tipo específico de produto, consumindo matérias-primas específicas.
+  - A obrigatoriedade de Produção gerar Lote (1,1) reflete a regra de que toda produção recebe número, lote, validade e data de fabricação, garantindo rastreabilidade.
+  - A sequência Expedição → Nota_Fiscal → Veículo reflete a regra de que a nota fiscal só é emitida após a expedição confirmar o recebimento, e o veículo só é contratado depois da nota fiscal.
 
 ---
 
@@ -163,7 +168,7 @@ PREENCHER — Explique e defenda as decisões de abstração tomadas: por que es
 | **Prompt(s) utilizados** | "Vou te enviar várias mensagens. Quero que você organize todo esse conteúdo de forma clara e estruturada... Organize por categorias: Entidades, Processos e Dados/Outras informações... Indique a referência de qual mensagem veio cada informação" (seguido da transcrição bruta da entrevista). |
 | **Resposta recebida** | Documento estruturado com o levantamento organizado em Entidades, Processos, Dados/Regras de Negócio (numeradas RN01–RN26) e um fluxo geral da produção, cada trecho referenciado à fala original do entrevistado. |
 | **Fontes consultadas e verificadas** | Nenhuma fonte externa; a IA apenas reorganizou informações fornecidas diretamente pelo grupo a partir da entrevista de campo, sem adicionar conteúdo próprio. |
-| **Trechos rejeitados ou corrigidos** | O levantamento original do ChatGPT sugeria tratar "Envase" e "Pallet" como entidades próprias do modelo; o grupo optou por representá-los como etapas do processo produtivo (atributos/estados dentro de Produção), e não como entidades independentes, para evitar granularidade excessiva no MER. [A confirmar após finalização do DER pelo grupo: eventuais ajustes de cardinalidade ou entidades feitos durante a montagem do diagrama no Figma.] |
+| **Trechos rejeitados ou corrigidos** | O levantamento original do ChatGPT sugeria tratar "Envase" e "Pallet" como entidades próprias do modelo; o grupo optou por representá-los como etapas do processo produtivo, e não como entidades independentes, para evitar granularidade excessiva no MER. Após a finalização do DER pelo grupo no Figma, algumas cardinalidades e nomes de relacionamentos ainda estão sendo revisados (ex.: cardinalidade entre Fornecedores e Matéria_Prima, e o nome de um relacionamento entre Expedição e Veículo).|
 | **Justificativa da escolha final** | A organização por categorias (Entidades/Processos/Regras) facilitou a transição direta desse levantamento para o MER e o dicionário de dados, mantendo rastreabilidade da fala original de onde cada regra foi extraída. |
 | **Reflexão crítica** | Como a IA apenas reorganiza e não valida o conteúdo, cabe ao grupo confirmar que nenhuma informação foi mal interpretada na reorganização — por exemplo, distinguir corretamente entre regras aplicáveis a "faturamento" e a "retirada com pagamento à vista", que têm condições diferentes. |
 
