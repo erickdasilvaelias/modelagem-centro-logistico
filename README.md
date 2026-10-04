@@ -108,20 +108,6 @@
 
 ## 5. Dicionário de Dados Conceitual
 
-| Entidade | Relaciona-se com | Cardinalidade |
-|---|---|---|
-| Cliente | Pedido | 0.N —  Um clinte pode possui ou não N pedidos, todo pedido pertence a um único cliente. |
-| Pedido | Nota Fiscal | 1.1 — Um pedido gerar apenas uma única nota fiscal. |
-| Pedido | Produto ||
-| Produto | Fórmula ||
-| Produto | Estoque ||
-| Produto | Lote ||
-| Matéria Prima | Máquina ||
-| Lote |||
-| Estoque |||
-| Veiculos |||
----
-
 
 ## 6. Modelagem Conceitual (Entidades, Atributos, Relacionamentos)
 
