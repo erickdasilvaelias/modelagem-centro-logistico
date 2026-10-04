@@ -146,8 +146,27 @@ O diagrama acima representa as entidades, atributos, relacionamentos e cardinali
 
 ## 8. Justificativa Técnica
 
-PREENCHER — Explique e defenda as decisões de abstração tomadas: por que essas entidades específicas (e não outras), por que esses atributos, por que essas cardinalidades. Por exemplo: por que Entrega foi modelada como entidade separada de Pedido em vez de atributos do próprio pedido; por que Item_Pedido existe como entidade associativa em vez de relacionamento direto N:N entre Pedido e Produto; por que Estoque foi separado de Produto (permite múltiplas localizações por produto).
+A entidade **Item_pedido** foi modelada como entidade associativa entre Pedido e Produto, em vez de um relacionamento direto N:N, porque cada item de um pedido carrega informações próprias (quantidade solicitada, por exemplo) que não pertencem exclusivamente nem ao Pedido nem ao Produto isoladamente. Essa decisão também reflete a realidade observada: um mesmo pedido pode conter múltiplos produtos, e um mesmo produto pode aparecer em múltiplos pedidos diferentes.
 
+A entidade **Formula** foi separada de Produto porque, apesar de cada produto possuir uma fórmula própria e fixa (conforme relatado na entrevista), a fórmula representa um processo com atributos e ciclo de vida próprios — status, versão, data de emissão — que não fazem sentido como atributos estáticos do produto em si. Isso também permite, futuramente, rastrear alterações de versão de uma fórmula sem afetar o cadastro do produto.
+
+A entidade **Matéria_prima** foi modelada separadamente de Formula, conectada por meio do relacionamento "utiliza", porque uma fórmula pode consumir múltiplas matérias-primas em quantidades diferentes — uma relação que não poderia ser representada corretamente como atributos fixos dentro de Formula.
+
+A entidade **Fornecedores** foi mantida separada de Matéria_prima porque fornecedor e matéria-prima são conceitos distintos no negócio: um fornecedor é uma pessoa jurídica com dados próprios (CNPJ, endereço, contato), enquanto a matéria-prima é um insumo da produção. O relacionamento entre as duas entidades foi modelado como (1,1):(1,1) porque, na operação observada na JV Indústria, cada matéria-prima utilizada é adquirida de um fornecedor fixo e exclusivo, sem alternância entre fornecedores diferentes para o mesmo insumo — essa cardinalidade reflete fielmente a prática comercial relatada na entrevista.
+
+A entidade **Máquina** foi modelada como independente porque, na operação observada, cada máquina é dedicada exclusivamente a um tipo de produto. Representar essa regra de negócio exige que Máquina exista como entidade própria, relacionada à Matéria_prima e à Produção, permitindo validar que a fabricação de um produto só ocorra na máquina correspondente.
+
+A entidade **Produção** foi separada de Produto porque representa um evento específico — uma execução real de fabricação, vinculada a um produto, com atributos próprios (quantidade, validade, data de fabricação). Isso reflete diretamente a regra de negócio de que a quantidade produzida só é conhecida (e registrada) após o encerramento da fórmula, podendo divergir da quantidade originalmente planejada. O atributo `id_estoque` presente em Produção foi mantido como forma de vincular diretamente cada registro de produção ao controle de estoque correspondente, funcionando como uma referência cruzada entre as duas entidades — garantindo que, a partir de um registro de produção, seja possível localizar imediatamente sua posição no estoque.
+
+A entidade **Lote** foi criada a partir de Produção para garantir rastreabilidade granular — cada lote carrega número, status, quantidade produzida, validade e data de fabricação próprios, permitindo rastrear fisicamente de onde veio cada unidade de produto que entra em estoque, algo exigido explicitamente pela entrevista ("toda produção recebe número dela e lote e validade dos produtos, data de fabricação").
+
+A entidade **Estoque** foi separada de Lote/Produto porque representa o saldo disponível em determinado momento, atualizado tanto automaticamente ao final da produção quanto manualmente pela conferência da expedição — duas origens de atualização que justificam a entidade ser independente, com seu próprio histórico de atualização (`data_atualizacao`).
+
+A entidade **Expedição** foi modelada separadamente de Pedido porque representa uma etapa distinta do processo logístico, com atributos próprios (data de saída, data de entrega, status, endereço de entrega) que ocorrem depois da produção estar concluída — nem todo pedido chega a esse estágio no mesmo momento em que é criado. O relacionamento entre Expedição/Veículo e Lote foi mantido para representar a vinculação do lote produzido ao veículo responsável por sua entrega final, fechando o ciclo de rastreabilidade do produto desde a fabricação até a saída física da empresa.
+
+A entidade **Nota_fiscal** foi mantida separada de Pedido e de Expedição porque, na operação real, a nota fiscal só é emitida após a confirmação da expedição — existe uma defasagem temporal entre os eventos que não seria corretamente representada caso a nota fiscal fosse apenas um atributo de outra entidade. Além disso, a nota fiscal carrega atributos legais próprios (número da nota, data de emissão) que não existem antes de sua emissão efetiva.
+
+Em conjunto, essas decisões priorizam a **rastreabilidade** de ponta a ponta do processo produtivo — do pedido do cliente até a entrega final — em detrimento de um modelo mais simplificado, já que a própria operação da JV Indústria exige esse nível de controle (produção sob encomenda, dedicação de máquinas por produto, rastreamento por lote e validade).
 ---
 
 ## 9. Uso de Inteligência Artificial
