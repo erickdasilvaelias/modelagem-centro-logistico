@@ -160,13 +160,12 @@ A entidade **Produção** foi separada de Produto porque representa um evento es
 
 A entidade **Lote** foi criada a partir de Produção para garantir rastreabilidade granular — cada lote carrega número, status, quantidade produzida, validade e data de fabricação próprios, permitindo rastrear fisicamente de onde veio cada unidade de produto que entra em estoque, algo exigido explicitamente pela entrevista ("toda produção recebe número dela e lote e validade dos produtos, data de fabricação").
 
-A entidade **Estoque** foi separada de Lote/Produto porque representa o saldo disponível em determinado momento, atualizado tanto automaticamente ao final da produção quanto manualmente pela conferência da expedição — duas origens de atualização que justificam a entidade ser independente, com seu próprio histórico de atualização (`data_atualizacao`).
+A entidade **Estoque** foi separada de Lote/Produto porque representa o saldo disponível em determinado momento, atualizado tanto automaticamente ao final da produção quanto manualmente pela conferência da expedição — duas origens de atualização que justificam a entidade ser independente, com seu próprio histórico de atualização.
 
 A entidade **Expedição** foi modelada separadamente de Pedido porque representa uma etapa distinta do processo logístico, com atributos próprios (data de saída, data de entrega, status, endereço de entrega) que ocorrem depois da produção estar concluída — nem todo pedido chega a esse estágio no mesmo momento em que é criado. O relacionamento entre Expedição/Veículo e Lote foi mantido para representar a vinculação do lote produzido ao veículo responsável por sua entrega final, fechando o ciclo de rastreabilidade do produto desde a fabricação até a saída física da empresa.
 
 A entidade **Nota_fiscal** foi mantida separada de Pedido e de Expedição porque, na operação real, a nota fiscal só é emitida após a confirmação da expedição — existe uma defasagem temporal entre os eventos que não seria corretamente representada caso a nota fiscal fosse apenas um atributo de outra entidade. Além disso, a nota fiscal carrega atributos legais próprios (número da nota, data de emissão) que não existem antes de sua emissão efetiva.
 
-Em conjunto, essas decisões priorizam a **rastreabilidade** de ponta a ponta do processo produtivo — do pedido do cliente até a entrega final — em detrimento de um modelo mais simplificado, já que a própria operação da JV Indústria exige esse nível de controle (produção sob encomenda, dedicação de máquinas por produto, rastreamento por lote e validade).
 ---
 
 ## 9. Uso de Inteligência Artificial
