@@ -47,8 +47,8 @@
   - **Emissão de nota fiscal e contratação de entrega:** após a confirmação da expedição, é emitida a nota fiscal e contratado o veículo responsável pela entrega ao cliente.
 
 
-- **Fluxogramas:**
-
+- **Fluxograma:**<br>
+<img src="img/fluxograma.jpg" width="400px"></img>
 ---
 
 ## 3. Requisitos do Sistema
