@@ -28,8 +28,6 @@
   - Contato: adm2@jvindustria.com.br/ (12) 3958-3431
   - Entrevistado: Eliane Silveira do Carmo
   - Site: https://jvindustria.com.br/
-  - Fotos da visita (anexar no repositório)
-
 ---
 
 ## 2. Processos de Negócio
