@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dicionário de dados</title>
+</head>
+
+<style>
+    h1 {
+        font-family: sans-serif;
+        font-size: x-large;
+        color: #1c2747;
+        border-bottom: #1c2747 solid 3px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: sans-serif;
+        margin: 20px 0;
+    }
+
+    caption {
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-align: left;
+        padding: 10px 0;
+        color: #333;
+        caption-side: top;
+    }
+
+    th,
+    td {
+        padding: 12px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    th {
+        background-color: #1c2747;
+        color: #fff;
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: #cdcdcd;
+    }
+</style>
+
+<body>
+    <h1>Dicionário de dados por entidade</h1>
+    <div>
+
+        <table>
+            <caption>
+                Cliente
+            </caption>
+            <thead>
+                <tr>
+                    <th>Atributo</th>
+                    <th>Tipo físico</th>
+                    <th>Obrigatório</th>
+                    <th>Significado e relevância</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>id_cliente</td>
+                    <td>integer</td>
+                    <td>Sim (pk)</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>nome_cliente</td>
+                    <td>varchar(120)</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>cpf_cnpj</td>
+                    <td>varchar(14)</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>telefone</td>
+                    <td>varchar(20)</td>
+                    <td>Não</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>endereço</td>
+                    <td>varchar(255)</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>email</td>
+                    <td>varchar(255)</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <table>
+            <caption>
+                Pedido
+            </caption>
+            <thead>
+                <tr>
+                    <th>Atributo</th>
+                    <th>Tipo físico</th>
+                    <th>Obrigatório</th>
+                    <th>Significado e relevância</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>id_pedido</td>
+                    <td>interger</td>
+                    <td>Sim (pk)</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>id_cliente</td>
+                    <td>integer</td>
+                    <td>Sim (fk)</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>valor_total</td>
+                    <td>decimal(10, 2)</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>tipo_pagamento</td>
+                    <td>varchar(50)</td>
+                    <td>SIm</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>localizacao</td>
+                    <td>varchar(255)</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>data_criacao</td>
+                    <td>datetime</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>data_entrega</td>
+                    <td>datetime</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>status_pedido</td>
+                    <td>Caracter(A, P, E)</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>id_veiculo</td>
+                    <td>interger</td>
+                    <td>Não</td>
+                    <td></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <table>
+            <caption>
+                Notas_fiscal
+            </caption>
+            <thead>
+                <tr>
+                    <th>Atributo</th>
+                    <th>Tipo físico</th>
+                    <th>Obrigatório</th>
+                    <th>Significado e relevância</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>id_nota_fiscal</td>
+                    <td>integer</td>
+                    <td>Sim (pk)</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>id_pedido</td>
+                    <td>interger</td>
+                    <td>Sim (fk)</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>data_emissao</td>
+                    <td>datatime</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>Status_pagamento</td>
+                    <td>boolean</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <table>
+            <caption>
+                item_pedido
+            </caption>
+            <thead>
+                <tr>
+                    <th>Atributo</th>
+                    <th>Tipo físico</th>
+                    <th>Obrigatório</th>
+                    <th>Significado e relevância</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>id_item</td>
+                    <td>integer</td>
+                    <td>Sim (pk)</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>id_pedido</td>
+                    <td>integer</td>
+                    <td>Sim (fk)</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>quantidade</td>
+                    <td>integer</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>preco_unitario</td>
+                    <td>decimal(10, 2)</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <table>
+            <caption>
+                Produto
+            </caption>
+            <thead>
+                <tr>
+                    <th>Atributo</th>
+                    <th>Tipo físico</th>
+                    <th>Obrigatório</th>
+                    <th>Significado e relevância</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>id_produto</td>
+                    <td>integer</td>
+                    <td>Sim (pk)</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>descricao_produto</td>
+                    <td>varchar(225)</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>codigo_interno</td>
+                    <td>varchar(50)</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>nome_produto</td>
+                    <td>varchar(225)</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>estoque_minimo</td>
+                    <td>integer</td>
+                    <td>Não</td>
+                    <td></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <table>
+            <caption>
+                Lote
+            </caption>
+            <thead>
+                <tr>
+                    <th>Atributo</th>
+                    <th>Tipo físico</th>
+                    <th>Obrigatório</th>
+                    <th>Significado e relevância</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>id_lote</td>
+                    <td>integer</td>
+                    <td>Sim (pk)</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>data_validade</td>
+                    <td>date</td>
+                    <td>Não</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>id_produto</td>
+                    <td>integer</td>
+                    <td>Sim (fk)</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>quantidade</td>
+                    <td>integer</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>data_fabricacao</td>
+                    <td>date</td>
+                    <td>Não</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>numero_lote</td>
+                    <td>varchar(50)</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>status_lote</td>
+                    <td>boolean</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <table>
+            <caption>
+                Formula
+            </caption>
+            <thead>
+                <tr>
+                    <th>Atributo</th>
+                    <th>Tipo físico</th>
+                    <th>Obrigatório</th>
+                    <th>Significado e relevância</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>id_formula</td>
+                    <td>integer</td>
+                    <td>Sim (pk)</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>id_produto</td>
+                    <td>integer</td>
+                    <td>Sim (fk)</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>data_emissao</td>
+                    <td>date</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>versao</td>
+                    <td>varchar(10)</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>status_formula</td>
+                    <td>boolean</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <table>
+            <caption>
+                Maquina
+            </caption>
+            <thead>
+                <tr>
+                    <th>Atributo</th>
+                    <th>Tipo físico</th>
+                    <th>Obrigatório</th>
+                    <th>Significado e relevância</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>id_maquina</td>
+                    <td>integer</td>
+                    <td>Sim (pk)</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>tipo_maquina</td>
+                    <td>varchar(225)</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>status_maquina</td>
+                    <td>boolean</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <table>
+            <caption>
+                Materia_prima
+            </caption>
+            <thead>
+                <tr>
+                    <th>Atributo</th>
+                    <th>Tipo físico</th>
+                    <th>Obrigatório</th>
+                    <th>Significado e relevância</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>id_Materia_prima</td>
+                    <td>integer</td>
+                    <td>Sim (pk)</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>data_validade</td>
+                    <td>date</td>
+                    <td>Não</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>descricao</td>
+                    <td>varchar(225)</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>nome_materia_prima</td>
+                    <td>varchar(225)</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>unidade_medida</td>
+                    <td>varchar(10)</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>codigo_materia_prima</td>
+                    <td>varchar(50)</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>quantidade_utilizada</td>
+                    <td>integer</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <table>
+            <caption>
+                Estoque
+            </caption>
+            <thead>
+                <tr>
+                    <th>Atributo</th>
+                    <th>Tipo físico</th>
+                    <th>Obrigatório</th>
+                    <th>Significado e relevância</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>id_estoque</td>
+                    <td>integer</td>
+                    <td>Sim (pk)</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>data_atualizacao</td>
+                    <td>datetime</td>
+                    <td>sim</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>localidade_estoque</td>
+                    <td>varchar(225)</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>quantidade_estoque</td>
+                    <td>integer</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <table>
+            <caption>
+                Movimento_estoque
+            </caption>
+            <thead>
+                <tr>
+                    <th>Atributo</th>
+                    <th>Tipo físico</th>
+                    <th>Obrigatório</th>
+                    <th>Significado e relevância</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>id_movimentacao</td>
+                    <td>integer</td>
+                    <td>Sim (pk)</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>id_estoque</td>
+                    <td>integer</td>
+                    <td>Sim (fk)</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>quantidade_movimentacao</td>
+                    <td>integer</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>tipo_movimentacao</td>
+                    <td>varchar(50)</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>data_movimentacao</td>
+                    <td>datetime</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>motivo_movimentacao</td>
+                    <td>varchar(225)</td>
+                    <td>Não</td>
+                    <td></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <table>
+            <caption>
+                Entrega
+            </caption>
+            <thead>
+                <tr>
+                    <th>Atributo</th>
+                    <th>Tipo físico</th>
+                    <th>Obrigatório</th>
+                    <th>Significado e relevância</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>id_entrega</td>
+                    <td>integer</td>
+                    <td>Sim (pk)</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>id_pedido</td>
+                    <td>integer</td>
+                    <td>Sim (fk)</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>data_entrega</td>
+                    <td>datetime</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>status_entrega</td>
+                    <td>boolean</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>data_saida</td>
+                    <td>datetime</td>
+                    <td>Não</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>endereco_entrega</td>
+                    <td>varchar(225)</td>
+                    <td>Não</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>codigo_rastreio</td>
+                    <td>varchar(50)</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <table>
+            <caption>
+                Veiculo
+            </caption>
+            <thead>
+                <tr>
+                    <th>Atributo</th>
+                    <th>Tipo físico</th>
+                    <th>Obrigatório</th>
+                    <th>Significado e relevância</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>id_veiculo</td>
+                    <td>integer</td>
+                    <td>Sim (pk)</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>placa_veiculo</td>
+                    <td>varchar(7)</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>codigo_rastreio</td>
+                    <td>varchar(50)</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>nome_veiculo</td>
+                    <td>varchar(225)</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>marca_veiculo</td>
+                    <td>varchar(100)</td>
+                    <td>Sim</td>
+                    <td></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+</body>
+
+</html>
