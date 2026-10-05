@@ -127,28 +127,28 @@
 
 ## 6. Modelagem Conceitual (Entidades, Atributos, Relacionamentos)
 
-- **Entidades reconhecidas:** Cliente, Pedido, Item_Pedido, Produto, Formula, Matéria_Prima, Fornecedores, Máquina, Produção, Lote, Estoque, Expedição, Nota_Fiscal, Veículo. Cada entidade corresponde a uma etapa ou elemento concreto identificado no processo real da empresa: desde o pedido do cliente até a entrega final, passando pela emissão da fórmula, consumo de matéria-prima, fabricação em máquina dedicada, controle de lote e expedição.
+- **Entidades reconhecidas:** Cliente, Pedido, Nota_Fiscal, Item_Pedido, Produto, Estoque, Movimento_Estoque, Formula, Matéria_Prima, Máquina, Lote, Entrega, Veículos. Cada entidade corresponde a uma etapa ou elemento concreto identificado no processo real da empresa: desde o pedido do cliente até a entrega final, passando pela emissão da fórmula, consumo de matéria-prima, fabricação em máquina, controle de lote, estoque e faturamento.
 
 - **Relacionamentos pertinentes:**
   - Cliente **realiza** Pedido (0,N) : (1,1) — Um cliente pode realizar nenhum ou vários pedidos, mas cada pedido pertence a um único cliente.
-  - Pedido **possui** Item_Pedido (1,1) : (1,N) — Um pedido deve possuir pelo menos um ou vários itens, e cada item pertence a exatamente um pedido.
-  - Item_Pedido **refere-se** Produto (1,1) : (1,1) — Cada item do pedido refere-se obrigatoriamente a exatamente um produto.
-  - Formula **define** Produto (1,1) : (1,1) — Reflete a regra de que cada produto tem uma fórmula própria e fixa.
-  - Formula **utiliza** Matéria_Prima (1,1) : (1,N) — Uma fórmula utiliza obrigatoriamente uma ou várias matérias-primas.
-  - Matéria_Prima **abastece** Máquina (1,N) : (1,N) — Uma matéria-prima pode abastecer várias máquinas e uma máquina pode ser abastecida por várias matérias-primas.
-  - Fornecedores **fornece** Matéria_Prima (1,1) : (1,N) — Um fornecedor pode fornecer várias matérias-primas, e cada matéria-prima é fornecida por um fornecedor específico.
-  - Produto **origina** Produção (1,1) : (1,N) — Um produto pode originar várias produções, e cada ordem de produção gera um produto específico.
-  - Produção **gera** Lote (1,N) : (1,1) — Uma produção pode gerar um ou vários lotes, e cada lote pertence a uma única produção.
-  - Lote **está em** Estoque (1,1) : (0,N) — Um lote está armazenado em um estoque específico, e o estoque pode conter nenhum ou vários lotes.
-  - Pedido **gera** Expedição (1,1) : (1,N) — Um pedido gera uma ou mais etapas de expedição para entrega.
-  - Expedição **emite** Nota_Fiscal (1,1) : (1,1) — Cada expedição emite exatamente uma nota fiscal correspondente.
-  - Expedição **emite** Veículo (1,N) : (0,N) — Uma expedição vincula um ou mais veículos, enquanto um veículo pode participar de nenhuma ou várias expedições.
+  - Pedido **emite** Nota_Fiscal (1,1) : (1,1) — Um pedido gera apenas uma nota fiscal, e cada nota fiscal está vinculada a exatamente um pedido.
+  - Pedido **possui** Item_Pedido (1,N) : (1,1) — Um pedido deve conter pelo menos um ou vários itens, e cada item pertence a um único pedido.
+  - Item_Pedido **refere-se** Produto (1,1) : (0,N) — Cada item do pedido refere-se obrigatoriamente a exatamente um produto; um produto pode estar presente em nenhum ou vários itens de pedido.
+  - Produto **está em** Estoque (0,N) : (?) — Um produto pode possuir nenhum ou vários registros de controle de localização em estoque.
+  - Estoque **sofre** Movimento_Estoque (0,N) : (?) — Um registro de estoque pode sofrer nenhuma ou múltiplas movimentações ao longo do tempo.
+  - Produto **possui** Formula (1,1) : (?) — Um produto possui obrigatoriamente uma única fórmula para sua fabricação.
+  - Formula **utiliza** Matéria_Prima (1,N) : (?) — Uma fórmula utiliza obrigatoriamente uma ou várias matérias-primas em sua composição.
+  - Matéria_Prima **é processada por** Máquina (0,N) : (?) — Uma matéria-prima pode ser processada por nenhuma ou várias máquinas na fábrica.
+  - Máquina **fabrica** Lote (0,N) : (?) — Uma máquina pode fabricar nenhum ou vários lotes de produtos.
+  - Lote **contém** Produto (1,1) : (?) — Todo lote fabricado contém obrigatoriamente um único tipo de produto.
+  - Pedido **gera** Entrega (1,1) : (1,1) — Um pedido está associado a exatamente uma entrega, e cada entrega atende a um pedido.
+  - Entrega **utiliza** Veículos (1,1) : (1,1) — Uma entrega utiliza obrigatoriamente um único veículo para o transporte.
 
 - **Restrições e políticas organizacionais aplicadas ao modelo:**
-  - A obrigatoriedade de Formula estar sempre vinculada a um único Produto (1,1) reflete a regra de que cada produto possui fórmula própria e fixa, que não muda entre pedidos.
-  - A cardinalidade entre Matéria_Prima e Máquina (via "abastece") busca refletir a regra de que cada máquina é dedicada a um tipo específico de produto, consumindo matérias-primas específicas.
-  - A obrigatoriedade de Produção gerar Lote (1,1) reflete a regra de que toda produção recebe número, lote, validade e data de fabricação, garantindo rastreabilidade.
-  - A sequência Expedição → Nota_Fiscal → Veículo reflete a regra de que a nota fiscal só é emitida após a expedição confirmar o recebimento, e o veículo só é contratado depois da nota fiscal.
+  - A obrigatoriedade de Produto estar sempre vinculado a uma única Formula (1,1) reflete a regra de que cada produto possui fórmula própria e fixa, que não muda entre pedidos.
+  - A obrigatoriedade de Lote conter um único Produto (1,1) reflete a regra de que toda produção recebe número, lote, validade e data de fabricação, garantindo rastreabilidade por lote.
+  - A existência de Movimento_Estoque como entidade própria, associada a Estoque, permite registrar tanto a entrada automática de produtos ao final da produção quanto a confirmação manual feita pela expedição.
+  - A cardinalidade (1,1):(1,1) entre Pedido e Entrega, e entre Entrega e Veículos, reflete a regra de que a entrega só ocorre após a emissão da nota fiscal, utilizando um único veículo contratado por vez.
 
 
 ## 7. Diagrama Entidade-Relacionamento (DER)
