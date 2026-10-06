@@ -72,7 +72,7 @@
 - **Segurança:** o acesso a dados de clientes, valores de pedidos e notas fiscais deve ser restrito a usuários autorizados (administrativo/financeiro).
 - **Usabilidade:** a interface usada no chão de fábrica (registro de fórmula, encerramento de produção) deve ser simples o suficiente para operadores de máquina sem formação técnica em TI.
 - **Integridade:** o sistema não deve permitir o encerramento de uma fórmula sem o registro da quantidade efetivamente produzida.
-- **Rastreabilidade:** o sistema deve manter o histórico de cada lote produzido, vinculado à fórmula, à máquina e ao pedido de origem.
+- **Rastreabilidade:** o sistema deve manter o histórico de cada lote produzido, vinculado à produção de origem (e, por meio dela, à fórmula e à máquina) e ao pedido atendido (por meio da entrega).
 
 ---
 
@@ -106,47 +106,76 @@
 
 | Entidade | Relaciona-se com | Cardinalidade |
 |---|---|---|
-| Cliente | Pedido | 0.N — Um cliente pode possuir ou não N pedidos, todo pedido pertence a um único cliente. |
-| Pedido | Nota Fiscal | 1.1 — Um pedido gera apenas uma nota fiscal, e cada nota fiscal está vinculada a exatamente um pedido. |
-| Pedido | Item_pedido | 1.N — Um pedido deve conter pelo menos um ou vários itens, e cada item pedido pertence a um único pedido. |
-| Item_pedido | Produto | 1.1 — Cada item do pedido refere-se obrigatoriamente a exatamente um produto cadastrado. |
-| Produto | Item_pedido | 0.N — Um produto pode nunca ter sido vendido ou estar presente em múltiplos itens de pedidos. |
-| Produto | Estoque | 0.N — Um produto pode possuir nenhum ou vários registros de controle de localização em estoque. |
-| Estoque | Movimento no Estoque | 0.N — Um registro de estoque pode sofrer nenhuma ou múltiplas movimentações ao longo do tempo. |
-| Produto | Fórmula | 1.1 — Um produto possui obrigatoriamente uma única fórmula para a sua fabricação. |
-| Fórmula | Matéria Prima | 1.N — Uma fórmula utiliza obrigatoriamente uma ou várias matérias-primas em sua composição. |
-| Matéria Prima | Máquina | 0.N — Uma matéria-prima pode ser processada por nenhuma ou várias máquinas na fábrica. |
-| Máquina | Lote | 0.N — Uma máquina pode fabricar nenhum ou vários lotes de produtos. |
-| Lote | Produto | 1.1 — Todo lote fabricado contém obrigatoriamente um único tipo de produto. |
-| Pedido | Entrega | 1.1 — Um pedido está associado a exatamente uma entrega, e cada entrega atende a um pedido. |
-| Entrega | Veículos | 1.1 — Uma entrega utiliza obrigatoriamente um único veículo para o transporte. |
+| CLIENTE | PEDIDO | 1:N — um cliente realiza vários pedidos; todo pedido pertence a um único cliente |
+| PEDIDO | NOTA_FISCAL | 1:1 — um pedido origina uma nota fiscal (verbo *emitir*) |
+| PEDIDO | ENTREGA | 1:1 opcional — um pedido pode ou não gerar uma entrega (verbo *informa*); toda entrega pertence a um único pedido |
+| PEDIDO | PRODUTO | N:N — um pedido tem de 1 a N produtos; um produto está em 0 a N pedidos (verbo *origina*; resolvido por ITEM_PEDIDO) |
+| ENTREGA | VEICULO | N:N — uma entrega usa de 1 a N veículos; um veículo faz 0 a N entregas (verbo *utiliza*; resolvido por ENTREGA_VEICULO) |
+| ENTREGA | LOTE | 1:N — uma entrega envia de 1 a N lotes; cada lote segue em uma única entrega (verbo *envia*) |
+| PRODUTO | FORMULA | 1:N — um produto possui de 1 a N fórmulas (versões); cada fórmula pertence a um único produto (verbo *possui*) |
+| PRODUTO | PRODUCAO | 1:N — um produto é fabricado em 0 a N produções; cada produção produz um único produto (verbo *produz*) |
+| PRODUCAO | LOTE | 1:N — uma produção gera 0 a N lotes; cada lote vem de uma única produção (verbo *fabricar*) |
+| EMBALAGEM | LOTE | 1:N — uma embalagem é usada em 1 a N lotes; cada lote tem exatamente uma embalagem (verbo *embala*) |
+| PRODUCAO | MAQUINA | N:N — uma produção usa de 1 a N máquinas; uma máquina realiza 0 a N produções (verbo *realiza*; resolvido por PRODUCAO_MAQUINA) |
+| MATERIA_PRIMA | MAQUINA | N:N — uma matéria-prima abastece 1 a N máquinas e vice-versa (verbo *abastece*; resolvido por ABASTECIMENTO) |
+| MATERIA_PRIMA | FORNECEDOR | N:N — fornecedores e matérias-primas se relacionam por 0 a N compras (verbo *compra*; resolvido por COMPRA) |
+| PRODUCAO + FORMULA + MATERIA_PRIMA | — | Ternário — cada produção aplica uma fórmula que consome matérias-primas (verbo *Utiliza*; resolvido por UTILIZACAO) |
+| ESTOQUE | MOVIMENTO_ESTOQUE | 1:N — um estoque é atualizado por 0 a N movimentos; todo movimento afeta exatamente um estoque (verbo *atualiza*) |
+| ESTOQUE + MATERIA_PRIMA + PRODUTO + LOTE | — | Quaternário — o estoque registra matérias-primas, produtos e lotes (verbo *registra*; resolvido por REGISTRO_ESTOQUE) |
+
+**Definições das entidades**
+
+- **Cliente** é a pessoa física ou jurídica que adquire produtos por meio de pedidos.
+- **Pedido** é a solicitação de compra feita por um cliente, com valores, forma de pagamento e prazos de entrega.
+- **Nota fiscal** é o documento fiscal emitido a partir de um pedido.
+- **Entrega** é o evento de transporte de lotes até o cliente, com código de rastreio.
+- **Veículo** é o meio de transporte utilizado nas entregas.
+- **Produto** é o item fabricado e comercializado pela empresa.
+- **Fórmula** é a receita versionada que define como um produto é fabricado.
+- **Matéria-prima** é o insumo adquirido de fornecedores e consumido na produção.
+- **Fornecedor** é a pessoa jurídica que vende matéria-prima à empresa.
+- **Máquina** é o equipamento que executa a fabricação e é abastecido por matérias-primas.
+- **Produção** é o evento de fabricação de um produto, com data e validade.
+- **Lote** é o conjunto de unidades resultante de uma produção, embalado e enviado em conjunto.
+- **Embalagem** é o recipiente ou invólucro (tipo e tamanho) usado nos lotes.
+- **Estoque** é o local de armazenagem de matérias-primas, produtos e lotes.
+- **Movimento no estoque** é o registro de entrada ou saída que atualiza um estoque.
+---
+
+## 2. Fluxo de dados (visão de DFD)
+
+Fornecedor entrega matéria-prima → **COMPRA** registra a aquisição e **REGISTRO_ESTOQUE** lança a matéria-prima no **ESTOQUE** → a matéria-prima **abastece** a **MAQUINA** → uma **PRODUCAO** é executada com uma **FORMULA** do **PRODUTO**, consumindo matérias-primas (**UTILIZACAO**) nas máquinas escolhidas (**PRODUCAO_MAQUINA**) → a produção gera **LOTE**s, cada um com sua **EMBALAGEM**, que voltam ao **ESTOQUE** via **REGISTRO_ESTOQUE** e geram **MOVIMENTO_ESTOQUE** → o **CLIENTE** faz um **PEDIDO** com seus itens (**ITEM_PEDIDO**) → o pedido origina a **NOTA_FISCAL** e, quando há entrega, uma **ENTREGA** que envia os lotes por **VEICULO**s (**ENTREGA_VEICULO**) → a saída baixa o estoque por novo **MOVIMENTO_ESTOQUE** → toda leitura ou escrita nessas tabelas é registrada pelo log de acesso do SGBD (§5), o que sustenta auditoria e conformidade com a LGPD (§6).
+
 
 
 
 ## 6. Modelagem Conceitual (Entidades, Atributos, Relacionamentos)
 
-- **Entidades reconhecidas:** Cliente, Pedido, Nota_Fiscal, Item_Pedido, Produto, Estoque, Movimento_Estoque, Formula, Matéria_Prima, Máquina, Lote, Entrega, Veículos. Cada entidade corresponde a uma etapa ou elemento concreto identificado no processo real da empresa: desde o pedido do cliente até a entrega final, passando pela emissão da fórmula, consumo de matéria-prima, fabricação em máquina, controle de lote, estoque e faturamento.
+- **Entidades reconhecidas:** Cliente, Pedido, Nota_Fiscal, Produto, Estoque, Movimento_Estoque, Formula, Matéria_Prima, Fornecedor, Máquina, Produção, Lote, Embalagem, Entrega, Veículos. Cada entidade corresponde a uma etapa ou elemento concreto identificado no processo real da empresa: desde o pedido do cliente até a entrega final, passando pela emissão da fórmula, consumo de matéria-prima, fabricação em máquina, controle de lote, estoque e faturamento.
 
 - **Relacionamentos pertinentes:**
   - Cliente **realiza** Pedido (0,N) : (1,1) — Um cliente pode realizar nenhum ou vários pedidos, mas cada pedido pertence a um único cliente.
-  - Pedido **emite** Nota_Fiscal (1,1) : (1,1) — Um pedido gera apenas uma nota fiscal, e cada nota fiscal está vinculada a exatamente um pedido.
-  - Pedido **possui** Item_Pedido (1,N) : (1,1) — Um pedido deve conter pelo menos um ou vários itens, e cada item pertence a um único pedido.
-  - Item_Pedido **refere-se** Produto (1,1) : (0,N) — Cada item do pedido refere-se obrigatoriamente a exatamente um produto; um produto pode estar presente em nenhum ou vários itens de pedido.
-  - Produto **está em** Estoque (0,N) : (?) — Um produto pode possuir nenhum ou vários registros de controle de localização em estoque.
-  - Estoque **sofre** Movimento_Estoque (0,N) : (?) — Um registro de estoque pode sofrer nenhuma ou múltiplas movimentações ao longo do tempo.
-  - Produto **possui** Formula (1,1) : (?) — Um produto possui obrigatoriamente uma única fórmula para sua fabricação.
-  - Formula **utiliza** Matéria_Prima (1,N) : (?) — Uma fórmula utiliza obrigatoriamente uma ou várias matérias-primas em sua composição.
-  - Matéria_Prima **é processada por** Máquina (0,N) : (?) — Uma matéria-prima pode ser processada por nenhuma ou várias máquinas na fábrica.
-  - Máquina **fabrica** Lote (0,N) : (?) — Uma máquina pode fabricar nenhum ou vários lotes de produtos.
-  - Lote **contém** Produto (1,1) : (?) — Todo lote fabricado contém obrigatoriamente um único tipo de produto.
-  - Pedido **gera** Entrega (1,1) : (1,1) — Um pedido está associado a exatamente uma entrega, e cada entrega atende a um pedido.
-  - Entrega **utiliza** Veículos (1,1) : (1,1) — Uma entrega utiliza obrigatoriamente um único veículo para o transporte.
+  - Pedido **emite** Nota_Fiscal (1,1) : (0,1) — Cada pedido gera exatamente uma nota fiscal, e cada nota fiscal está associada a no máximo um pedido.
+  - Pedido **origina** Produto (1,N) : (0,N) — Um pedido deve conter de um a vários produtos, e um produto pode estar presente em nenhum ou vários pedidos (relacionamento N:N, resolvido no modelo lógico pela tabela associativa Item_Pedido).
+  - Produto **possui** Formula (1,N) : (1,1) — Um produto possui de uma a várias fórmulas (versões), e cada fórmula pertence a um único produto.
+  - Produção **produz** Produto (1,1) : (0,N) — Cada produção produz exatamente um produto, e um produto pode ser fabricado em nenhuma ou várias produções.
+  - Formula **utiliza** Matéria_Prima, em uma Produção (relacionamento ternário) — Formula (1,N), Matéria_Prima (1,N) e Produção (1,1) no DER: uma fórmula utiliza uma ou várias matérias-primas, uma matéria-prima pode ser usada em uma ou várias fórmulas, e cada utilização ocorre no contexto de exatamente uma produção.
+  - Matéria_Prima **abastece** Máquina (1,N) : (1,N) — Uma matéria-prima abastece uma ou várias máquinas, e cada máquina é abastecida por uma ou várias matérias-primas.
+  - Matéria_Prima **é fornecida por** Fornecedor (0,N) : (0,N) — Uma matéria-prima pode ser comprada de nenhum ou vários fornecedores, e um fornecedor pode fornecer nenhuma ou várias matérias-primas (relacionamento *compra* no DER).
+  - Máquina **realiza** Produção (0,N) : (1,N) — Uma máquina pode realizar nenhuma ou várias produções, e cada produção é realizada por uma ou várias máquinas.
+  - Produção **fabrica** Lote (0,N) : (1,1) — Uma produção pode gerar nenhum ou vários lotes, e cada lote vem de exatamente uma produção.
+  - Embalagem **embala** Lote (1,N) : (1,1) — Uma embalagem embala um ou vários lotes, e cada lote possui exatamente uma embalagem.
+  - Estoque **registra** Matéria_Prima, Produto e Lote (relacionamento quaternário) — Estoque (1,N), Matéria_Prima (0,N), Produto (0,N) e Lote (0,N) no DER: cada matéria-prima, produto ou lote pode constar em nenhum ou vários registros de estoque, e todo registro envolve ao menos um estoque.
+  - Estoque **é atualizado por** Movimento_Estoque (0,N) : (1,1) — Um estoque pode ser atualizado por nenhuma ou múltiplas movimentações ao longo do tempo, e cada movimentação atualiza exatamente um estoque (relacionamento *atualiza* no DER).
+  - Pedido **informa** Entrega (0,1) : (1,1) — Um pedido pode gerar nenhuma ou uma entrega (retirada no local não gera entrega), e cada entrega atende a exatamente um pedido.
+  - Entrega **envia** Lote (1,N) : (1,1) — Uma entrega envia um ou vários lotes, e cada lote segue em exatamente uma entrega.
+  - Entrega **utiliza** Veículos (1,N) : (0,N) — Uma entrega utiliza um ou vários veículos, e um veículo pode participar de nenhuma ou várias entregas.
 
 - **Restrições e políticas organizacionais aplicadas ao modelo:**
-  - A obrigatoriedade de Produto estar sempre vinculado a uma única Formula (1,1) reflete a regra de que cada produto possui fórmula própria e fixa, que não muda entre pedidos.
-  - A obrigatoriedade de Lote conter um único Produto (1,1) reflete a regra de que toda produção recebe número, lote, validade e data de fabricação, garantindo rastreabilidade por lote.
+  - A obrigatoriedade de todo Produto possuir ao menos uma Formula (1,N) reflete a regra de que cada produto possui fórmula própria, que não muda entre pedidos; a cardinalidade N admite apenas versões da mesma fórmula (atributo versão), sem alterar o cadastro do produto.
+  - A obrigatoriedade de cada Lote vir de exatamente uma Produção (1,1) — que, por sua vez, produz exatamente um Produto (1,1) — reflete a regra de que toda produção recebe número, lote, validade e data de fabricação, garantindo rastreabilidade por lote até um único produto.
   - A existência de Movimento_Estoque como entidade própria, associada a Estoque, permite registrar tanto a entrada automática de produtos ao final da produção quanto a confirmação manual feita pela expedição.
-  - A cardinalidade (1,1):(1,1) entre Pedido e Entrega, e entre Entrega e Veículos, reflete a regra de que a entrega só ocorre após a emissão da nota fiscal, utilizando um único veículo contratado por vez.
+  - A cardinalidade (0,1):(1,1) entre Pedido e Entrega permite pedidos sem entrega (retirada no local) e garante que cada entrega atenda a um único pedido, enquanto a cardinalidade (1,N):(0,N) entre Entrega e Veículos permite que uma entrega use mais de um veículo contratado e que um veículo atenda várias entregas ao longo do tempo; a regra de que a entrega só ocorre após a emissão da nota fiscal é de processo e não aparece nas cardinalidades.
 
 
 ## 7. Diagrama Entidade-Relacionamento (DER)
@@ -155,13 +184,13 @@
 
 O diagrama acima representa as entidades, atributos, relacionamentos e cardinalidades levantados a partir do processo produtivo da JV Indústria, cobrindo desde o recebimento do pedido do cliente até a entrega final — passando pela emissão de fórmula, consumo de matéria-prima, fabricação em máquina, controle de lote, entrada e movimentação em estoque, e faturamento.
 
-**Entidades representadas:** Cliente, Pedido, Nota_Fiscal, Item_Pedido, Produto, Estoque, Movimento_Estoque, Formula, Matéria_Prima, Máquina, Lote, Entrega, Veículos.
+**Entidades representadas:** Cliente, Pedido, Nota_Fiscal, Produto, Estoque, Movimento_Estoque, Formula, Matéria_Prima, Fornecedor, Máquina, Produção, Lote, Embalagem, Entrega, Veículos.
 
 ---
 
 ## 8. Justificativa Técnica
 
-A entidade **Item_Pedido** foi modelada como entidade associativa entre Pedido e Produto, em vez de um relacionamento direto N:N, porque cada item de um pedido carrega informações próprias (quantidade solicitada, por exemplo) que não pertencem exclusivamente nem ao Pedido nem ao Produto isoladamente. Essa decisão também reflete a realidade observada: um mesmo pedido pode conter múltiplos produtos, e um mesmo produto pode aparecer em múltiplos pedidos diferentes.
+Pedido e Produto foram ligados no DER por um relacionamento direto N:N (*origina*), porque um mesmo pedido pode conter múltiplos produtos e um mesmo produto pode aparecer em múltiplos pedidos diferentes, conforme a realidade observada. Na passagem para o modelo lógico, esse relacionamento será resolvido por uma tabela associativa (**Item_Pedido**), que poderá carregar informações próprias de cada item (quantidade solicitada, por exemplo), pois elas não pertencem exclusivamente nem ao Pedido nem ao Produto isoladamente.
 
 A entidade **Nota_Fiscal** foi mantida separada de Pedido porque representa um documento fiscal com atributos próprios (número da nota, data de emissão) e um momento distinto no processo — a emissão da nota ocorre após a confirmação da produção/estoque, e não no momento em que o pedido é criado.
 
@@ -169,13 +198,13 @@ A entidade **Formula** foi separada de Produto porque, apesar de cada produto po
 
 A entidade **Matéria_Prima** foi modelada separadamente de Formula, conectada por meio do relacionamento "utiliza", porque uma fórmula pode consumir múltiplas matérias-primas em quantidades diferentes — uma relação que não poderia ser representada corretamente como atributos fixos dentro de Formula.
 
-A entidade **Máquina** foi modelada como independente porque, na operação observada, cada máquina é dedicada exclusivamente a um tipo de produto. Representar essa regra de negócio exige que Máquina exista como entidade própria, relacionada à Matéria_Prima e ao Lote, permitindo rastrear qual máquina fabricou determinado lote.
+A entidade **Máquina** foi modelada como independente porque, na operação observada, cada máquina é dedicada exclusivamente a um tipo de produto. Representar essa regra de negócio exige que Máquina exista como entidade própria, relacionada à Matéria_Prima (abastece) e à Produção (realiza), permitindo rastrear, por meio da Produção, qual máquina fabricou determinado lote.
 
-A entidade **Lote** foi criada para garantir rastreabilidade granular — cada lote carrega número, status, quantidade produzida, validade e data de fabricação próprios, permitindo rastrear fisicamente de onde veio cada unidade de produto que entra em estoque, algo exigido explicitamente pela entrevista ("toda produção recebe número dela e lote e validade dos produtos, data de fabricação").
+A entidade **Lote** foi criada para garantir rastreabilidade granular — cada lote carrega número, status e quantidade próprios e, por meio da Produção de origem, data de fabricação e validade, permitindo rastrear fisicamente de onde veio cada unidade de produto que entra em estoque, algo exigido explicitamente pela entrevista ("toda produção recebe número dela e lote e validade dos produtos, data de fabricação").
 
-A entidade **Estoque** foi separada de Produto porque representa o saldo disponível em determinado momento, e não uma característica fixa do produto. A entidade **Movimento_Estoque** foi criada separadamente de Estoque para registrar o histórico de alterações de quantidade ao longo do tempo (entradas, saídas, ajustes), permitindo rastrear quando e por que o saldo de um produto mudou — algo que um único campo de "quantidade" em Estoque não conseguiria representar.
+A entidade **Estoque** foi separada de Produto porque representa o local de armazenagem (localidade) em que matérias-primas, produtos e lotes são registrados, e não uma característica fixa do produto. A entidade **Movimento_Estoque** foi criada separadamente de Estoque para registrar o histórico de alterações de quantidade ao longo do tempo (entradas, saídas, ajustes), permitindo rastrear quando e por que o saldo de um produto mudou — algo que o Estoque, que guarda apenas a localidade, não conseguiria representar.
 
-A entidade **Entrega** foi modelada separadamente de Pedido porque representa uma etapa distinta do processo logístico, que ocorre somente após a emissão da nota fiscal, com atributos próprios relacionados ao transporte. A entidade **Veículos** foi mantida separada de Entrega porque representa um recurso físico da empresa, com atributos próprios (placa, modelo, tipo), que pode ser consultado e gerenciado independentemente de uma entrega específica.
+A entidade **Entrega** foi modelada separadamente de Pedido porque representa uma etapa distinta do processo logístico, que ocorre somente após a emissão da nota fiscal, com atributos próprios relacionados ao transporte. A entidade **Veículos** foi mantida separada de Entrega porque representa um recurso físico da empresa, com atributos próprios (placa, modelo), que pode ser consultado e gerenciado independentemente de uma entrega específica.
 
 Em conjunto, essas decisões priorizam a **rastreabilidade** de ponta a ponta do processo produtivo — do pedido do cliente até a entrega final — em detrimento de um modelo mais simplificado, já que a própria operação da JV Indústria exige esse nível de controle (produção sob encomenda, dedicação de máquinas por produto, rastreamento por lote e validade, e histórico de movimentação de estoque).
 
