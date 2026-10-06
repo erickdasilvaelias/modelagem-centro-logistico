@@ -14,7 +14,7 @@
     th,
     td {
         border-bottom: #000 solid 3px;
-        padding: 12px;
+        padding: 12px o;
         width: 25%;
         text-align: center;
     }
@@ -30,13 +30,24 @@
         width: 80%;
         margin: auto;
     }
+
+    .notacao {
+        padding: 12px 0;
+        width: 100%;
+        text-align: center;
+        background-color: rgb(234, 225, 215);
+    }
 </style>
 
 <body>
 
     <div>
         <table>
-            <caption>Cliente</caption>
+            <caption>
+                Cliente
+                <div class="notacao">CLIENT = @ID_CLIENTE + NM_CLIENTE + NR_CPF_CNPJ + DS_ENDERECO + NR_TELEFONE +
+                    EM_EMAIL</div>
+            </caption>
             <thead>
                 <tr>
                     <th>Atributo</th>
@@ -47,38 +58,37 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>id_cliente</td>
+                    <td>ID_CLIENTE</td>
                     <td>integer</td>
-                    <td>Sim (pk)</td>
+                    <td>Sim (PK)</td>
                     <td>Identificador único do cliente.</td>
                 </tr>
                 <tr>
-                    <td>nome_cliente</td>
+                    <td>NM_CLIENTE</td>
                     <td>varchar(120)</td>
                     <td>Sim</td>
                     <td>Nome completo ou razão social; identifica o cliente em seus pedidos.</td>
                 </tr>
                 <tr>
-                    <td>cpf_cnpj</td>
-                    <td>varchar(14)</td>
+                    <td>NR_CPF_CNPJ</td>
+                    <td>varchar(18)</td>
                     <td>Sim (unique)</td>
-                    <td>CPF ou CNPJ; Garante a validade cadastral para emissão de Notas Fiscais, integridade de pedidos
-                        e rastreabilidade segura.</td>
+                    <td>CPF ou CNPJ formatado; garante a validade cadastral para emissão de Notas Fiscais.</td>
                 </tr>
                 <tr>
-                    <td>endereco</td>
+                    <td>DS_ENDERECO</td>
                     <td>varchar(255)</td>
                     <td>Não</td>
                     <td>Localização para faturamento ou contato.</td>
                 </tr>
                 <tr>
-                    <td>telefone</td>
+                    <td>NR_TELEFONE</td>
                     <td>varchar(20)</td>
                     <td>Não</td>
                     <td>Número de telefone principal.</td>
                 </tr>
                 <tr>
-                    <td>email</td>
+                    <td>EM_EMAIL</td>
                     <td>varchar(255)</td>
                     <td>Sim</td>
                     <td>Endereço de e-mail principal.</td>
@@ -88,7 +98,11 @@
     </div><br>
     <div>
         <table>
-            <caption>Pedido</caption>
+            <caption>
+                Pedido
+                <div class="notacao">PEDIDO = @ID_PEDIDO + VL_TOTAL + TP_PAGAMENTO + DS_ENDERECO_ENTREGA + ST_PEDIDO +
+                    DT_PEDIDO + DT_ENTREGA_PREVISTA + DT_SAIDA + VL_TAXA_ENTREGA + D_CLIENTE</div>
+            </caption>
             <thead>
                 <tr>
                     <th>Atributo</th>
@@ -99,71 +113,74 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>id_pedido</td>
+                    <td>ID_PEDIDO</td>
                     <td>integer</td>
-                    <td>Sim (pk)</td>
-                    <td> Código identificador da venda.</td>
+                    <td>Sim (PK)</td>
+                    <td>Código identificador único do pedido de venda.</td>
                 </tr>
                 <tr>
-                    <td>valor_total</td>
+                    <td>VL_TOTAL</td>
                     <td>decimal(10,2)</td>
                     <td>Sim</td>
                     <td>Preço final somado de todos os itens do pedido.</td>
                 </tr>
                 <tr>
-                    <td>tipo_pagamento</td>
+                    <td>TP_PAGAMENTO</td>
                     <td>varchar(50)</td>
                     <td>Sim</td>
                     <td>Forma de pagamento utilizada no pedido.</td>
                 </tr>
                 <tr>
-                    <td>endereco_entrega</td>
+                    <td>DS_ENDERECO_ENTREGA</td>
                     <td>varchar(255)</td>
                     <td>Não</td>
                     <td>Endereço onde o pedido será entregue.</td>
                 </tr>
                 <tr>
-                    <td>status_pedido</td>
+                    <td>ST_PEDIDO</td>
                     <td>varchar(50)</td>
                     <td>Sim</td>
                     <td>Situação atual do pedido.</td>
                 </tr>
                 <tr>
-                    <td>data_pedido</td>
+                    <td>DT_PEDIDO</td>
                     <td>datetime</td>
                     <td>Sim</td>
                     <td>Data e hora em que o pedido foi realizado.</td>
                 </tr>
                 <tr>
-                    <td>data_entrega_prevista</td>
+                    <td>DT_ENTREGA_PREVISTA</td>
                     <td>date</td>
                     <td>Sim</td>
                     <td>Data prevista para a entrega do pedido.</td>
                 </tr>
                 <tr>
-                    <td>data_saida</td>
+                    <td>DT_SAIDA</td>
                     <td>datetime</td>
                     <td>Não</td>
                     <td>Data e hora em que o pedido saiu para entrega.</td>
                 </tr>
                 <tr>
-                    <td>taxa_entrega</td>
+                    <td>VL_TAXA_ENTREGA</td>
                     <td>decimal(10,2)</td>
                     <td>Não</td>
                     <td>Valor da taxa de entrega.</td>
                 </tr>
                 <tr>
-                    <td>id_cliente</td>
+                    <td>ID_CLIENTE</td>
                     <td>integer</td>
-                    <td>Sim (fk)</td>
-                    <td>Identificador único do cliente.</td>
+                    <td>Sim (FK)</td>
+                    <td>Identificador único do cliente solicitante.</td>
                 </tr>
             </tbody>
         </table>
     </div><br>
     <div>
         <table>
-            <caption>Nota_fiscal</caption>
+            <caption>
+                Nota_fiscal
+                <div class="notacao">NOTA_FISCAL = @ID_NOTA_FISCAL + DT_EMISSAO + ST_NOTA + ID_PEDIDO</div>
+            </caption>
             <thead>
                 <tr>
                     <th>Atributo</th>
@@ -174,35 +191,38 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>id_nota_fiscal</td>
+                    <td>ID_NOTA_FISCAL</td>
                     <td>integer</td>
-                    <td>Sim (pk)</td>
-                    <td>Número de série do documento fiscal.</td>
+                    <td>Sim (PK)</td>
+                    <td>Identificador único do documento fiscal.</td>
                 </tr>
                 <tr>
-                    <td>data_emissao</td>
+                    <td>DT_EMISSAO</td>
                     <td>datetime</td>
                     <td>Sim</td>
                     <td>Data e hora em que a nota fiscal foi emitida.</td>
                 </tr>
                 <tr>
-                    <td>status_nota</td>
+                    <td>ST_NOTA</td>
                     <td>boolean</td>
                     <td>Sim</td>
                     <td>Indica se a nota fiscal está ativa.</td>
                 </tr>
                 <tr>
-                    <td>id_pedido</td>
+                    <td>ID_PEDIDO</td>
                     <td>integer</td>
-                    <td>Sim (fk)</td>
-                    <td>Código identificador da venda.</td>
+                    <td>Sim (FK)</td>
+                    <td>Código identificador do pedido vinculado.</td>
                 </tr>
             </tbody>
         </table>
     </div><br>
     <div>
         <table>
-            <caption>Produto</caption>
+            <caption>
+                Produto
+                <div class="notacao">PRODUTO=@ID_PRODUTO+NM_PRODUTO+DS_PRODUTO+(QT_ESTOQUE_MINIMO)</div>
+            </caption>
             <thead>
                 <tr>
                     <th>Atributo</th>
@@ -213,25 +233,25 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>id_produto</td>
+                    <td>ID_PRODUTO</td>
                     <td>integer</td>
-                    <td>Sim (pk)</td>
-                    <td>Possui Fórmula; Possui Pedido; Contém Lote; Registra Estoque; Embala</td>
+                    <td>Sim (PK)</td>
+                    <td>Identificador único do produto.</td>
                 </tr>
                 <tr>
-                    <td>nome_produto</td>
+                    <td>NM_PRODUTO</td>
                     <td>varchar(150)</td>
                     <td>Sim</td>
                     <td>Nome comercial do item.</td>
                 </tr>
                 <tr>
-                    <td>descricao_produto</td>
+                    <td>DS_PRODUTO</td>
                     <td>varchar(2000)</td>
                     <td>Sim</td>
                     <td>Descrição detalhada do produto.</td>
                 </tr>
                 <tr>
-                    <td>estoque_minimo</td>
+                    <td>QT_ESTOQUE_MINIMO</td>
                     <td>integer</td>
                     <td>Não</td>
                     <td>Quantidade de segurança abaixo da qual o sistema deve alertar para reposição.</td>
@@ -241,7 +261,10 @@
     </div><br>
     <div>
         <table>
-            <caption>Producao</caption>
+            <caption>
+                Producao
+                <div class="notacao">PRODUCAO=@ID_PRODUCAO+ID_FORMULA+ID_PRODUTO+ID_LOTE</div>
+            </caption>
             <thead>
                 <tr>
                     <th>Atributo</th>
@@ -252,35 +275,38 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>id_producao</td>
+                    <td>ID_PRODUCAO</td>
                     <td>integer</td>
-                    <td>Sim (pk)</td>
-                    <td>Utiliza Fórmula; Produz Produto; Fabrica Lote</td>
+                    <td>Sim (PK)</td>
+                    <td>Identificador único da ordem de produção.</td>
                 </tr>
                 <tr>
-                    <td>id_formula</td>
+                    <td>ID_FORMULA</td>
                     <td>integer</td>
-                    <td>Sim (fk)</td>
-                    <td>Fórmula</td>
+                    <td>Sim (FK)</td>
+                    <td>Código da fórmula utilizada na produção.</td>
                 </tr>
                 <tr>
-                    <td>id_produto</td>
+                    <td>ID_PRODUTO</td>
                     <td>integer</td>
-                    <td>Sim (fk)</td>
-                    <td>Produto</td>
+                    <td>Sim (FK)</td>
+                    <td>Código do produto gerado.</td>
                 </tr>
                 <tr>
-                    <td>id_lote</td>
+                    <td>ID_LOTE</td>
                     <td>integer</td>
-                    <td>Sim (fk)</td>
-                    <td>Lote</td>
+                    <td>Sim (FK)</td>
+                    <td>Código do lote fabricado.</td>
                 </tr>
             </tbody>
         </table>
     </div><br>
     <div>
         <table>
-            <caption>Lote</caption>
+            <caption>
+                Lote
+                <div class="notacao">LOTE=@ID_LOTE+(DT_VALIDADE)+QT_LOTE+(DT_FABRICACAO)+ST_LOTE+ID_PRODUTO</div>
+            </caption>
             <thead>
                 <tr>
                     <th>Atributo</th>
@@ -291,47 +317,50 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>id_lote</td>
+                    <td>ID_LOTE</td>
                     <td>integer</td>
-                    <td>Sim (pk)</td>
-                    <td>Fabrica Produção; Contém Produto; Registra</td>
+                    <td>Sim (PK)</td>
+                    <td>Identificador único do lote.</td>
                 </tr>
                 <tr>
-                    <td>data_validade</td>
+                    <td>DT_VALIDADE</td>
                     <td>date</td>
                     <td>Não</td>
                     <td>Data em que o lote vence.</td>
                 </tr>
                 <tr>
-                    <td>quantidade</td>
+                    <td>QT_LOTE</td>
                     <td>integer</td>
                     <td>Sim</td>
                     <td>Volume de itens gerados naquele lote específico.</td>
                 </tr>
                 <tr>
-                    <td>data_fabricacao</td>
+                    <td>DT_FABRICACAO</td>
                     <td>date</td>
                     <td>Não</td>
                     <td>Data em que o lote foi fabricado.</td>
                 </tr>
                 <tr>
-                    <td>status_lote</td>
+                    <td>ST_LOTE</td>
                     <td>varchar(50)</td>
                     <td>Sim</td>
                     <td>Situação do lote (ex: ativo, vencido, em produção).</td>
                 </tr>
                 <tr>
-                    <td>id_produto</td>
+                    <td>ID_PRODUTO</td>
                     <td>integer</td>
-                    <td>Sim (fk)</td>
-                    <td>Produto</td>
+                    <td>Sim (FK)</td>
+                    <td>Código do produto a que este lote pertence.</td>
                 </tr>
             </tbody>
         </table>
     </div><br>
     <div>
         <table>
-            <caption>Formula</caption>
+            <caption>
+                Formula
+                <div class="notacao">FORMULA=@ID_FORMULA+DT_EMISSAO+NR_VERSAO+ST_FORMULA+ID_PRODUTO</div>
+            </caption>
             <thead>
                 <tr>
                     <th>Atributo</th>
@@ -342,33 +371,33 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>id_formula</td>
+                    <td>ID_FORMULA</td>
                     <td>integer</td>
-                    <td>Sim (pk)</td>
-                    <td>Possui Produto; Utiliza Produção; Utiliza Matéria Prima</td>
+                    <td>Sim (PK)</td>
+                    <td>Identificador único da fórmula.</td>
                 </tr>
                 <tr>
-                    <td>data_emissao</td>
+                    <td>DT_EMISSAO</td>
                     <td>date</td>
                     <td>Sim</td>
                     <td>Data em que a fórmula foi emitida.</td>
                 </tr>
                 <tr>
-                    <td>versao</td>
+                    <td>NR_VERSAO</td>
                     <td>varchar(10)</td>
                     <td>Sim (unique)</td>
-                    <td>Edição da fórmula (útil para rastrear alterações de ingredientes ao longo do tempo).</td>
+                    <td>Edição da fórmula (útil para rastrear alterações de ingredientes).</td>
                 </tr>
                 <tr>
-                    <td>status_formula</td>
+                    <td>ST_FORMULA</td>
                     <td>boolean</td>
                     <td>Sim</td>
                     <td>Situação da receita (ex: ativa, obsoleta, em teste).</td>
                 </tr>
                 <tr>
-                    <td>id_produto</td>
+                    <td>ID_PRODUTO</td>
                     <td>integer</td>
-                    <td>Sim (fk)</td>
+                    <td>Sim (FK)</td>
                     <td>Código identificador do item final de venda.</td>
                 </tr>
             </tbody>
@@ -376,7 +405,10 @@
     </div><br>
     <div>
         <table>
-            <caption>Maquina</caption>
+            <caption>
+                Maquina
+                <div class="notacao">MAQUINA=@ID_MAQUINA+ST_MAQUINA+TP_MAQUINA+(QT_CAPACIDADE_MAX)</div>
+            </caption>
             <thead>
                 <tr>
                     <th>Atributo</th>
@@ -387,25 +419,25 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>id_maquina</td>
+                    <td>ID_MAQUINA</td>
                     <td>integer</td>
-                    <td>Sim (pk)</td>
-                    <td>Abastece Matéria Prima</td>
+                    <td>Sim (PK)</td>
+                    <td>Identificador único da máquina.</td>
                 </tr>
                 <tr>
-                    <td>status_maquina</td>
+                    <td>ST_MAQUINA</td>
                     <td>boolean</td>
                     <td>Sim</td>
                     <td>Estado operacional (ex: em operação, manutenção, ociosa).</td>
                 </tr>
                 <tr>
-                    <td>tipo_maquina</td>
+                    <td>TP_MAQUINA</td>
                     <td>varchar(225)</td>
                     <td>Sim</td>
-                    <td>Tipo de máquina.</td>
+                    <td>Tipo ou modelo de máquina.</td>
                 </tr>
                 <tr>
-                    <td>capacidade_max</td>
+                    <td>QT_CAPACIDADE_MAX</td>
                     <td>integer</td>
                     <td>Não</td>
                     <td>Quantidade máxima de itens que a máquina pode processar simultaneamente.</td>
@@ -415,7 +447,10 @@
     </div><br>
     <div>
         <table>
-            <caption>Materia_prima</caption>
+            <caption>
+                Materia_prima
+                <div class="notacao">MATERIA_PRIMA=@ID_MATERIA_PRIMA+NM_MATERIA_PRIMA+DS_MATERIA_PRIMA+(DT_VALIDADE)</div>
+            </caption>
             <thead>
                 <tr>
                     <th>Atributo</th>
@@ -426,25 +461,25 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>id_materia_prima</td>
+                    <td>ID_MATERIA_PRIMA</td>
                     <td>integer</td>
-                    <td>Sim (pk)</td>
-                    <td>Compra Fornecedor; Abastece Máquina; Utiliza Fórmula</td>
+                    <td>Sim (PK)</td>
+                    <td>Identificador único da matéria-prima.</td>
                 </tr>
                 <tr>
-                    <td>nome_materia_prima</td>
+                    <td>NM_MATERIA_PRIMA</td>
                     <td>varchar(225)</td>
                     <td>Sim</td>
                     <td>Nome do insumo (Ex: Açúcar, Plástico, Ferro).</td>
                 </tr>
                 <tr>
-                    <td>descricao</td>
+                    <td>DS_MATERIA_PRIMA</td>
                     <td>varchar(225)</td>
                     <td>Sim</td>
                     <td>Descrição do insumo.</td>
                 </tr>
                 <tr>
-                    <td>data_validade</td>
+                    <td>DT_VALIDADE</td>
                     <td>date</td>
                     <td>Não</td>
                     <td>Data limite para a utilização segura do insumo.</td>
@@ -454,7 +489,10 @@
     </div><br>
     <div>
         <table>
-            <caption>Fornecedor</caption>
+            <caption>
+                Fornecedor
+                <div class="notacao">FORNECEDOR=@ID_FORNECEDOR+(DS_FORNECEDOR)+NR_CNPJ+NM_FORNECEDOR+DS_COMPROVANTE_COMPRA</div>
+            </caption>
             <thead>
                 <tr>
                     <th>Atributo</th>
@@ -465,41 +503,44 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>id_fornecedor</td>
+                    <td>ID_FORNECEDOR</td>
                     <td>integer</td>
-                    <td>Sim (pk)</td>
-                    <td>Compra Matéria Prima</td>
+                    <td>Sim (PK)</td>
+                    <td>Identificador único do fornecedor.</td>
                 </tr>
                 <tr>
-                    <td>descricao</td>
+                    <td>DS_FORNECEDOR</td>
                     <td>varchar(225)</td>
                     <td>Não</td>
                     <td>Ramos de atividade ou notas internas sobre o fornecedor.</td>
                 </tr>
                 <tr>
-                    <td>cnpj</td>
-                    <td>varchar(14)</td>
+                    <td>NR_CNPJ</td>
+                    <td>varchar(18)</td>
                     <td>Sim (unique)</td>
-                    <td>Registo nacional de pessoa jurídica do fornecedor.</td>
+                    <td>Registro nacional de pessoa jurídica do fornecedor.</td>
                 </tr>
                 <tr>
-                    <td>nome</td>
+                    <td>NM_FORNECEDOR</td>
                     <td>varchar(150)</td>
                     <td>Sim</td>
-                    <td>Nome do fornecedor.</td>
+                    <td>Nome ou razão social do fornecedor.</td>
                 </tr>
                 <tr>
-                    <td>comprovante_compra</td>
+                    <td>DS_COMPROVANTE_COMPRA</td>
                     <td>varchar(255)</td>
                     <td>Sim</td>
-                    <td>Documento que comprova a compra do insumo.</td>
+                    <td>Caminho do documento que comprova a compra do insumo.</td>
                 </tr>
             </tbody>
         </table>
     </div><br>
     <div>
         <table>
-            <caption>Estoque</caption>
+            <caption>
+                Estoque
+                <div class="notacao">ESTOQUE=@ID_ESTOQUE+DS_LOCALIDADE_NO_ESTOQUE</div>
+            </caption>
             <thead>
                 <tr>
                     <th>Atributo</th>
@@ -510,13 +551,13 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>id_estoque</td>
+                    <td>ID_ESTOQUE</td>
                     <td>integer</td>
-                    <td>Sim (pk)</td>
-                    <td>Registra Produto; Atualiza Movimento no Estoque</td>
+                    <td>Sim (PK)</td>
+                    <td>Identificador único do local de estoque.</td>
                 </tr>
                 <tr>
-                    <td>localidade_estoque</td>
+                    <td>DS_LOCALIDADE_NO_ESTOQUE</td>
                     <td>varchar(225)</td>
                     <td>Sim</td>
                     <td>Corredor, prateleira ou morada física exata do item.</td>
@@ -526,7 +567,10 @@
     </div><br>
     <div>
         <table>
-            <caption>Movimento_estoque</caption>
+            <caption>
+                Movimento_estoque
+                <div class="notacao">MOVIMENTO_ESTOQUE=@ID_MOVIMENTACAO+TP_MOVIMENTACAO+DT_MOVIMENTACAO+QT_MOVIMENTACAO+(DS_MOTIVO_MOVIMENTACAO)+ID_ESTOQUE</div>
+            </caption>
             <thead>
                 <tr>
                     <th>Atributo</th>
@@ -537,47 +581,50 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>id_movimentacao</td>
+                    <td>ID_MOVIMENTACAO</td>
                     <td>integer</td>
-                    <td>Sim (pk)</td>
-                    <td>Atualiza Estoque</td>
+                    <td>Sim (PK)</td>
+                    <td>Identificador único da movimentação de estoque.</td>
                 </tr>
                 <tr>
-                    <td>tipo_movimentacao</td>
+                    <td>TP_MOVIMENTACAO</td>
                     <td>varchar(50)</td>
                     <td>Sim</td>
-                    <td>Sentido do fluxo (Ex: Entrada por produção, Saída por venda, Ajuste de quebra).</td>
+                    <td>Sentido do fluxo (Ex: Entrada por produção, Saída por venda).</td>
                 </tr>
                 <tr>
-                    <td>data_movimentacao</td>
+                    <td>DT_MOVIMENTACAO</td>
                     <td>datetime</td>
                     <td>Sim</td>
                     <td>Dia e hora da operação.</td>
                 </tr>
                 <tr>
-                    <td>quantidade_movimentacao</td>
+                    <td>QT_MOVIMENTACAO</td>
                     <td>integer</td>
                     <td>Sim</td>
                     <td>Quantidade de itens movimentados.</td>
                 </tr>
                 <tr>
-                    <td>motivo_movimentacao</td>
+                    <td>DS_MOTIVO_MOVIMENTACAO</td>
                     <td>varchar(225)</td>
                     <td>Não</td>
                     <td>Justificativa para a movimentação.</td>
                 </tr>
                 <tr>
-                    <td>id_estoque</td>
+                    <td>ID_ESTOQUE</td>
                     <td>integer</td>
-                    <td>Sim (fk)</td>
-                    <td>Estoque</td>
+                    <td>Sim (FK)</td>
+                    <td>Identificador do registro de estoque afetado.</td>
                 </tr>
             </tbody>
         </table>
     </div><br>
     <div>
         <table>
-            <caption>Entrega</caption>
+            <caption>
+                Entrega
+                <div class="notacao">ENTREGA=@ID_ENTREGA+DT_ENTREGA+NR_CODIGO_RASTREIO+ID_PEDIDO</div>
+            </caption>
             <thead>
                 <tr>
                     <th>Atributo</th>
@@ -588,35 +635,38 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>id_entrega</td>
+                    <td>ID_ENTREGA</td>
                     <td>integer</td>
-                    <td>Sim (pk)</td>
-                    <td>Informa Pedido; Envia Estoque; Utiliza Veiculo</td>
+                    <td>Sim (PK)</td>
+                    <td>Identificador único da entrega.</td>
                 </tr>
                 <tr>
-                    <td>data_entrega</td>
+                    <td>DT_ENTREGA</td>
                     <td>datetime</td>
                     <td>Sim</td>
                     <td>Data real em que o cliente recebeu o produto.</td>
                 </tr>
                 <tr>
-                    <td>codigo_rastreio</td>
+                    <td>NR_CODIGO_RASTREIO</td>
                     <td>varchar(50)</td>
                     <td>Sim</td>
                     <td>Código para acompanhar o transporte.</td>
                 </tr>
                 <tr>
-                    <td>id_pedido</td>
+                    <td>ID_PEDIDO</td>
                     <td>integer</td>
-                    <td>Sim (fk)</td>
-                    <td>Pedido</td>
+                    <td>Sim (FK)</td>
+                    <td>Código do pedido associado à entrega.</td>
                 </tr>
             </tbody>
         </table>
     </div><br>
     <div>
         <table>
-            <caption>Veiculo</caption>
+            <caption>
+                Veiculo
+                <div class="notacao">VEICULO=@ID_VEICULO+NR_PLACA_VEICULO+DS_MODELO_VEICULO</div>
+            </caption>
             <thead>
                 <tr>
                     <th>Atributo</th>
@@ -627,19 +677,19 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>id_veiculo</td>
+                    <td>ID_VEICULO</td>
                     <td>integer</td>
-                    <td>Sim (pk)</td>
-                    <td>Utiliza Entrega</td>
+                    <td>Sim (PK)</td>
+                    <td>Identificador único do veículo.</td>
                 </tr>
                 <tr>
-                    <td>placa_veiculo</td>
+                    <td>NR_PLACA_VEICULO</td>
                     <td>varchar(7)</td>
                     <td>Sim</td>
                     <td>Matrícula/Placa legal do veículo.</td>
                 </tr>
                 <tr>
-                    <td>modelo_veiculo</td>
+                    <td>DS_MODELO_VEICULO</td>
                     <td>varchar(100)</td>
                     <td>Sim</td>
                     <td>Marca e modelo (Ex: Fiorino, Caminhão Baú).</td>
@@ -649,7 +699,10 @@
     </div><br>
     <div>
         <table>
-            <caption>Embalagem</caption>
+            <caption>
+                Embalagem
+                <div class="notacao">EMBALAGEM=@ID_EMBALAGEM+TP_EMBALAGEM+DS_TAMANHO_EMBALAGEM</div>
+            </caption>
             <thead>
                 <tr>
                     <th>Atributo</th>
@@ -660,19 +713,19 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>id_embalagem</td>
+                    <td>ID_EMBALAGEM</td>
                     <td>integer</td>
-                    <td>Sim (pk)</td>
-                    <td>Embala Produto</td>
+                    <td>Sim (PK)</td>
+                    <td>Identificador único da embalagem.</td>
                 </tr>
                 <tr>
-                    <td>tipo_embalagem</td>
+                    <td>TP_EMBALAGEM</td>
                     <td>varchar(100)</td>
                     <td>Sim</td>
                     <td>Material/Formato (Ex: Caixa de papelão, lata de tinta).</td>
                 </tr>
                 <tr>
-                    <td>tamanho_embalagem</td>
+                    <td>DS_TAMANHO_EMBALAGEM</td>
                     <td>varchar(50)</td>
                     <td>Sim</td>
                     <td>Dimensões ou capacidade de volume.</td>
