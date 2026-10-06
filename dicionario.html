@@ -7,6 +7,10 @@
     <title>Dicionário de dados</title>
 </head>
 <style>
+    caption {
+        text-align: start;
+    }
+
     th {
         border-top: #000 solid 3px;
     }
@@ -29,6 +33,11 @@
     div {
         width: 80%;
         margin: auto;
+    }
+
+    p {
+        background-color: #bddce9;
+        padding: 12px;
     }
 
     .notacao {
@@ -95,6 +104,8 @@
                 </tr>
             </tbody>
         </table>
+        <p>Índices: PK ID_CLIENTE (clusterizado); Índice Único NR_CPF-CNPJ (evitar duplicidade de CPF/CNPJ); Índice
+            secundário em NM_CLIENTE (agilidade nas buscas por nome).</p>
     </div><br>
     <div>
         <table>
@@ -174,6 +185,9 @@
                 </tr>
             </tbody>
         </table>
+        <p>Índices: PK ID_PEDIDO (clusterizado); FK ID_CLIENTE; Índice Único NR_CPF-CNPJ (evitar duplicidade de
+            CPF/CNPJ); Índice
+            secundário DT_PEDIDO, ST_PEDIDO (acelera relatórios de vendas e filtros por situação).</p>
     </div><br>
     <div>
         <table>
@@ -216,6 +230,7 @@
                 </tr>
             </tbody>
         </table>
+        <p>Índices: PK ID_NOTA_FISCAL (clusterizado); Índice Único / FK (acelera a consulta do documento fiscal).</p>
     </div><br>
     <div>
         <table>
@@ -258,6 +273,8 @@
                 </tr>
             </tbody>
         </table>
+        <p>Índices: PK ID_PRODUTO (clusterizado); Índice
+            secundário NM_PRODUTO (facilitar na consulta de produtos por nome).</p>
     </div><br>
     <div>
         <table>
@@ -300,6 +317,8 @@
                 </tr>
             </tbody>
         </table>
+        <p>Índices: PK ID_PRODUCAO (clusterizado); FKs ID_FORMULA ,ID_PRODUTO, ID_LOTE (otimizam as opearações de
+            rastreabilidade).</p>
     </div><br>
     <div>
         <table>
@@ -354,6 +373,8 @@
                 </tr>
             </tbody>
         </table>
+        <p>Índices: PK ID_LOTE (clusterizado); FK ID_PRODUTO (expeficifica do que que é aquele lote); Índice
+            secundário em DT_VALIDADE (alertas de lotes próximos ao vencimento).</p>
     </div><br>
     <div>
         <table>
@@ -402,6 +423,7 @@
                 </tr>
             </tbody>
         </table>
+        <p>Índices: PK ID_FORMULA (clusterizado); Índice Único NR_VERSAO ( para garantir que seja possivel recuperar formulas antigas); FK ID_PRODUTO (localiza as formulas associada a cada produto).</p>
     </div><br>
     <div>
         <table>
@@ -444,12 +466,14 @@
                 </tr>
             </tbody>
         </table>
+        <p>Índices: PK ID_MAQUINA (clusterizado); Índice secundário ST_MAQUINA (agilidade ao filtrar maquinas ativas ou inativas).</p>
     </div><br>
     <div>
         <table>
             <caption>
                 Materia_prima
-                <div class="notacao">MATERIA_PRIMA=@ID_MATERIA_PRIMA+NM_MATERIA_PRIMA+DS_MATERIA_PRIMA+(DT_VALIDADE)</div>
+                <div class="notacao">MATERIA_PRIMA=@ID_MATERIA_PRIMA+NM_MATERIA_PRIMA+DS_MATERIA_PRIMA+(DT_VALIDADE)
+                </div>
             </caption>
             <thead>
                 <tr>
@@ -486,12 +510,15 @@
                 </tr>
             </tbody>
         </table>
+        <p>Índices: PK ID_MATERIA_PRIMA (clusterizado); Índice
+            secundário em NM_MATERIA_PRIMA (acelera a busca por nomes de insumo).</p>
     </div><br>
     <div>
         <table>
             <caption>
                 Fornecedor
-                <div class="notacao">FORNECEDOR=@ID_FORNECEDOR+(DS_FORNECEDOR)+NR_CNPJ+NM_FORNECEDOR+DS_COMPROVANTE_COMPRA</div>
+                <div class="notacao">
+                    FORNECEDOR=@ID_FORNECEDOR+(DS_FORNECEDOR)+NR_CNPJ+NM_FORNECEDOR+DS_COMPROVANTE_COMPRA</div>
             </caption>
             <thead>
                 <tr>
@@ -534,6 +561,7 @@
                 </tr>
             </tbody>
         </table>
+        <p>Índices: PK ID_FORNECEDOR (clusterizado); Índice Único NR_CNPJ (evitar duplicidade de fornecedores); Índice secundário NM_FORNECEDOR (agilidade nas buscas por razão social/nome).</p>
     </div><br>
     <div>
         <table>
@@ -564,12 +592,15 @@
                 </tr>
             </tbody>
         </table>
+        <p>Índices: PK ID_ESTOQUE (clusterizado).</p>
     </div><br>
     <div>
         <table>
             <caption>
                 Movimento_estoque
-                <div class="notacao">MOVIMENTO_ESTOQUE=@ID_MOVIMENTACAO+TP_MOVIMENTACAO+DT_MOVIMENTACAO+QT_MOVIMENTACAO+(DS_MOTIVO_MOVIMENTACAO)+ID_ESTOQUE</div>
+                <div class="notacao">
+                    MOVIMENTO_ESTOQUE=@ID_MOVIMENTACAO+TP_MOVIMENTACAO+DT_MOVIMENTACAO+QT_MOVIMENTACAO+(DS_MOTIVO_MOVIMENTACAO)+ID_ESTOQUE
+                </div>
             </caption>
             <thead>
                 <tr>
@@ -618,6 +649,8 @@
                 </tr>
             </tbody>
         </table>
+        <p>Índices: PK ID_MOVIMENTACAO (clusterizado); FK ID_ESTOQUE (vincular o historico de movimentos ao local do estoque); Índice
+            secundário em DT_MOVIMENTACAO (otimização de relatorios e inventário).</p>
     </div><br>
     <div>
         <table>
@@ -660,6 +693,7 @@
                 </tr>
             </tbody>
         </table>
+        <p>Índices: PK ID_ENTREGA (clusterizado); FK ID_PEDIDO (acelera a consulta por meio do pedido).</p>
     </div><br>
     <div>
         <table>
@@ -696,6 +730,7 @@
                 </tr>
             </tbody>
         </table>
+        <p>Índices: PK ID_VEICULO (clusterizado); Índice Único NR_PLACA_VEICULO (indetificar em caso de acidentes).</p>
     </div><br>
     <div>
         <table>
@@ -732,6 +767,7 @@
                 </tr>
             </tbody>
         </table>
+        <p>Índices: PK ID_EMBALAGEM (clusterizado).</p>
     </div><br>
 </body>
 
